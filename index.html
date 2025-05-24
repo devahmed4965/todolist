@@ -3,672 +3,512 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحليل شامل: العادة السرية وإدمان الإباحية</title>
+    <title>إنفوجرافيك: اتجاهات صناعة المحتوى الجنسي وأبحاث السوق</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Visualization & Content Choices:
-        - Table 1 (Overview): Goal: Compare. Method: HTML Table. Interaction: Static display. Justification: Direct representation of report data.
-        - Section II.B.1 (Neurochemicals - Masturbation): Goal: Inform. Method: HTML list (expandable). Interaction: Click to expand/collapse. Justification: Presents detailed list without cluttering initial view.
-        - Section II.B.2 (Brain Regions - Masturbation): Goal: Inform. Method: HTML text. Interaction: Static. Justification: Descriptive information.
-        - Section II.C (Physiological Effects - Masturbation): Goal: Inform/Compare (Benefits vs. Excessive). Method: HTML lists (expandable for harms). Interaction: Click to expand. Justification: Clear separation of benefits and harms.
-        - Section III.A.1 (Porn Addiction Symptoms): Goal: Inform. Method: HTML list (expandable). Interaction: Click to expand. Justification: Detailed list.
-        - Section III.B (Neurobiology - Porn Addiction - Subsections): Goal: Inform. Method: HTML text with bullet points. Interaction: Static. Justification: Explains complex concepts.
-        - Section III.C (Physiological Effects - Porn Addiction): Goal: Inform. Method: HTML list (expandable). Interaction: Click to expand. Justification: Detailed list.
-        - Section III.D (Psych/Social Harms - Porn Addiction): Goal: Inform. Method: HTML list (expandable). Interaction: Click to expand. Justification: Detailed list.
-        - Table 2 (Neurobiological Effects Comparison): Goal: Compare. Method: HTML Table. Interaction: Static. Justification: Direct representation of report data.
-        - Table 3 (Harms Comparison): Goal: Compare. Method: HTML Table. Interaction: Static. Justification: Direct representation of report data.
-        - Section IV (Societal Agendas - Subsections): Goal: Inform/Analyze. Method: HTML text with bullet points. Interaction: Static. Justification: Presents multifaceted arguments.
-        - Table 4 (Agendas Overview): Goal: Compare/Organize. Method: HTML Table. Interaction: Static. Justification: Direct representation of report data.
-        - Section VI (Recommendations): Goal: Inform. Method: HTML lists. Interaction: Static. Justification: Clear presentation of actionable points.
-        - General: All content is derived directly from the source report. No external charts are generated due to the qualitative nature of much of the comparative data; HTML tables are used for fidelity. Expandable sections (using JS or details/summary) are used for long lists to improve UX.
-        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Chart.js is included but not actively used for specific charts in this version, focusing on HTML tables for data from the report. -->
+    <!-- Visualization Choices:
+        - حجم سوق الإباحية في الولايات المتحدة (IV.B): الهدف: إعلام. التصور: رقم كبير (نص HTML). التبرير: إبراز إحصائية رئيسية. (لا SVG)
+        - نمو سوق الترفيه للبالغين العالمي (IV.B): الهدف: تغيير. التصور: مخطط خطي (Chart.js). التبرير: عرض توقعات النمو. (لا SVG)
+        - اللاعبون الرئيسيون في صناعة الإباحية (IV.B): الهدف: تنظيم. التصور: قائمة HTML منسقة. التبرير: عرض الفاعلين في السوق. (لا SVG)
+        - نماذج أعمال صناعة الإباحية (IV.B): الهدف: تنظيم. التصور: مخطط تدفق مبسط (HTML/CSS). التبرير: توضيح العمليات التجارية. (لا SVG)
+        - انتشار الإباحية على الإنترنت (IV.A): الهدف: إعلام. التصور: مخطط دائري مجوف (Chart.js). التبرير: عرض نسبة انتشار مواقع الإباحية. (لا SVG)
+        - تطور تكنولوجيا الإباحية (IV.B, IV.C): الهدف: تغيير/تنظيم. التصور: خط زمني مبسط (HTML/CSS). التبرير: عرض التطور التكنولوجي. (لا SVG)
+        - مواقف الشباب تجاه الإباحية (IV.A): الهدف: مقارنة. التصور: مخطط شريطي (Chart.js). التبرير: عرض تغير المواقف الأخلاقية (بيانات توضيحية مستوحاة من النص). (لا SVG)
+        - الأجندات المتنافسة (IV.D): الهدف: علاقات. التصور: مخطط مفاهيمي (HTML/CSS). التبرير: إظهار القوى المتفاعلة في السوق. (لا SVG)
+    -->
     <style>
         body {
-            font-family: 'Inter', 'Tajawal', sans-serif; /* Added Tajawal as a fallback Arabic font */
-            background-color: #FDFBF7; /* Warm off-white */
-            color: #4A4A4A; /* Dark Gray for text */
-        }
-        .nav-button {
-            @apply px-4 py-2 text-sm font-medium text-gray-700 hover:bg-amber-100 hover:text-amber-700 rounded-md transition-colors duration-150;
-        }
-        .nav-button.active {
-            @apply bg-amber-600 text-white hover:bg-amber-700;
-        }
-        .content-section {
-            @apply p-6 bg-white rounded-lg shadow-lg;
-        }
-        .section-title {
-            @apply text-3xl font-bold text-amber-700 mb-6 pb-2 border-b-2 border-amber-200;
-        }
-        .sub-section-title {
-            @apply text-2xl font-semibold text-amber-600 mt-6 mb-4;
-        }
-        .card {
-            @apply bg-amber-50 p-4 rounded-lg shadow;
-        }
-        .table-container {
-            @apply overflow-x-auto shadow-md rounded-lg;
-        }
-        table {
-            @apply min-w-full divide-y divide-gray-200;
-        }
-        thead {
-            @apply bg-amber-100;
-        }
-        th {
-            @apply px-6 py-3 text-right text-xs font-medium text-amber-700 uppercase tracking-wider;
-        }
-        tbody {
-            @apply bg-white divide-y divide-gray-200;
-        }
-        td {
-            @apply px-6 py-4 whitespace-nowrap text-sm text-gray-600;
-        }
-        .expand-toggle {
-            @apply cursor-pointer text-amber-600 hover:text-amber-800 font-semibold;
-        }
-        .expand-content {
-            @apply mt-2 ps-4 border-s-2 border-amber-200;
-        }
-        /* Custom scrollbar for better aesthetics */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #FDFBF7;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #E6A96C; /* Muted Terracotta/Amber */
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #D99054; /* Darker Terracotta/Amber */
+            font-family: 'Tajawal', sans-serif;
+            background-color: #FFFFFF; /* Tailwind: white */
+            color: #212121; /* Tailwind: gray-900 */
         }
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap');
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Example max-width */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px; /* Max height */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .section-title {
+            @apply text-3xl font-bold text-indigo-900 mb-8 pb-3 border-b-4 border-orange-500;
+        }
+        .subsection-title {
+            @apply text-2xl font-semibold text-indigo-800 mt-8 mb-4;
+        }
+        .card {
+            @apply bg-gray-100 p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl;
+        }
+        .stat-card {
+            @apply bg-blue-500 text-white p-6 rounded-xl shadow-lg text-center;
+        }
+        .stat-number {
+            @apply text-4xl font-bold block;
+        }
+        .stat-label {
+            @apply text-lg mt-2 block;
+        }
+        .flowchart-step {
+            @apply bg-indigo-100 text-indigo-800 p-3 rounded-lg shadow-md text-center min-w-[120px] mx-2;
+        }
+        .flowchart-arrow {
+            @apply text-3xl text-orange-500 mx-2 flex items-center;
+        }
+        .timeline-item {
+            @apply relative ps-8 mb-6;
+        }
+        .timeline-dot {
+            @apply absolute w-4 h-4 bg-orange-500 rounded-full top-1 -right-2 border-2 border-white;
+        }
+        .timeline-content {
+            @apply bg-indigo-50 p-4 rounded-lg shadow;
+        }
+        .nav-item {
+            @apply px-4 py-2 text-indigo-700 hover:text-orange-500 font-semibold transition-colors;
+        }
+        .nav-item.active {
+            @apply text-orange-600 border-b-2 border-orange-600;
+        }
+        .footer {
+            @apply bg-indigo-900 text-gray-200 text-center p-6 mt-12;
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased leading-relaxed">
 
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <h1 class="text-xl font-bold text-amber-700">تحليل العادة السرية والإباحية</h1>
-                <nav id="navigation" class="hidden md:flex space-x-reverse space-x-4">
-                    <button data-target="intro" class="nav-button active">مقدمة</button>
-                    <button data-target="masturbation" class="nav-button">العادة السرية</button>
-                    <button data-target="porn-addiction" class="nav-button">إدمان الإباحية</button>
-                    <button data-target="comparison" class="nav-button">مقارنات</button>
-                    <button data-target="agendas" class="nav-button">الأجندات المجتمعية</button>
-                    <button data-target="conclusion" class="nav-button">الخلاصة والتوصيات</button>
-                </nav>
-                <div class="md:hidden">
-                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-amber-500">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                        </svg>
-                    </button>
-                </div>
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-indigo-900">اتجاهات صناعة المحتوى الجنسي</h1>
+            <div class="hidden md:flex space-x-reverse space-x-1">
+                <a href="#introduction" class="nav-item active">مقدمة</a>
+                <a href="#normalization" class="nav-item">صعود التطبيع</a>
+                <a href="#porn-industry" class="nav-item">سوق الإباحية</a>
+                <a href="#technology" class="nav-item">دور التكنولوجيا</a>
+                <a href="#consumer-impact" class="nav-item">المستهلك والمجتمع</a>
+                <a href="#agendas" class="nav-item">الأجندات المتنافسة</a>
+                <a href="#conclusion" class="nav-item">الخلاصة</a>
             </div>
-        </div>
-        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
-            <nav class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center">
-                <button data-target="intro" class="nav-button active w-full text-center">مقدمة</button>
-                <button data-target="masturbation" class="nav-button w-full text-center">العادة السرية</button>
-                <button data-target="porn-addiction" class="nav-button w-full text-center">إدمان الإباحية</button>
-                <button data-target="comparison" class="nav-button w-full text-center">مقارنات</button>
-                <button data-target="agendas" class="nav-button w-full text-center">الأجندات المجتمعية</button>
-                <button data-target="conclusion" class="nav-button w-full text-center">الخلاصة والتوصيات</button>
-            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-indigo-900 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg py-2">
+            <a href="#introduction" class="block px-4 py-2 text-indigo-700 hover:bg-indigo-100">مقدمة</a>
+            <a href="#normalization" class="block px-4 py-2 text-indigo-700 hover:bg-indigo-100">صعود التطبيع</a>
+            <a href="#porn-industry" class="block px-4 py-2 text-indigo-700 hover:bg-indigo-100">سوق الإباحية</a>
+            <a href="#technology" class="block px-4 py-2 text-indigo-700 hover:bg-indigo-100">دور التكنولوجيا</a>
+            <a href="#consumer-impact" class="block px-4 py-2 text-indigo-700 hover:bg-indigo-100">المستهلك والمجتمع</a>
+            <a href="#agendas" class="block px-4 py-2 text-indigo-700 hover:bg-indigo-100">الأجندات المتنافسة</a>
+            <a href="#conclusion" class="block px-4 py-2 text-indigo-700 hover:bg-indigo-100">الخلاصة</a>
         </div>
     </header>
 
-    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
-        <div id="intro" class="content-section">
-            <h2 class="section-title">I. مقدمة</h2>
-            <p class="mb-4">يقدم هذا التقرير تحليلاً شاملاً للعادة السرية وإدمان الإباحية، متناولاً تعريفاتهما الطبية والنفسية، وتأثيراتهما البيولوجية العصبية والفسيولوجية (مع تركيز خاص على الدماغ، وتحديداً الفص الجبهي، والجسم ككل)، والأضرار المرتبطة بهما. كما يتضمن التقرير تحليلاً نقدياً "للأجندات" المجتمعية والثقافية المحيطة بهذين الموضوعين، مع تركيز جزء كبير من هذا التحليل على التأثيرات والديناميكيات السائدة في الولايات المتحدة، نظراً لدورها البارز في الإعلام العالمي والنشر الثقافي.</p>
-            <p class="mb-4">من المسلم به أن العادة السرية والإباحية موضوعان يثيران جدلاً مستمراً، ويخضعان لتفسيرات ثقافية متباينة، وفهم علمي متطور. يهدف هذا التقرير إلى تجميع نتائج الأبحاث الحالية لتقديم منظور متوازن قائم على الأدلة.</p>
+    <main class="container mx-auto px-6 py-8">
+
+        <section id="introduction" class="my-12">
+            <h2 class="section-title">مقدمة: تطور مشهد المحتوى الجنسي</h2>
+            <p class="text-lg text-gray-700 mb-4">يشهد عالم المحتوى الجنسي والألعاب الجنسية تحولات سريعة مدفوعة بالتقدم التكنولوجي، وتغير المعايير الثقافية، وديناميكيات السوق المعقدة. يستعرض هذا الإنفوجرافيك أبرز اتجاهات هذه الصناعات، حجم أسواقها، استراتيجياتها، وتأثيرها المجتمعي، استنادًا إلى تحليل نقدي للبيانات والأجندات السائدة، مع التركيز على السياق الأمريكي وتأثيره العالمي.</p>
+            <p class="text-lg text-gray-700">يهدف هذا العرض إلى تقديم فهم مبسط وسهل لأبعاد هذه الصناعات، مسلطًا الضوء على القوى الاقتصادية والثقافية التي تشكلها وتتأثر بها.</p>
+        </section>
+
+        <section id="normalization" class="my-16">
+            <h2 class="section-title">صعود التطبيع: اتجاهات مجتمعية وسوقية</h2>
+            <p class="text-lg text-gray-700 mb-6">يُلاحظ اتجاه متزايد نحو تطبيع كل من الاستمناء واستهلاك الإباحية، مدفوعًا بعوامل ثقافية وتجارية. هذا التطبيع له آثار مباشرة على سلوك المستهلك وديناميكيات السوق.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="subsection-title">تطبيع الاستمناء</h3>
+                    <p class="text-gray-700 mb-3">يحظى الاستمناء بقبول متزايد ويُنظر إليه كنشاط صحي وجزء من الرعاية الذاتية. تساهم صناعة الألعاب الجنسية بنشاط في هذا الاتجاه من خلال تسويق منتجاتها كأدوات للعافية، حتى أن كبرى متاجر التجزئة بدأت في عرضها.</p>
+                    <p class="text-gray-600 text-sm">المصدر: (IV.A من التقرير)</p>
+                </div>
+                <div class="card">
+                    <h3 class="subsection-title">تطبيع الإباحية</h3>
+                    <p class="text-gray-700 mb-3">أصبح استهلاك الإباحية أمرًا شائعًا، خاصة في أمريكا الشمالية وأوروبا الغربية، ويُعزى ذلك لسهولة الوصول عبر الإنترنت والقبول المجتمعي. "إباحة" وسائل الإعلام، أي زيادة الصراحة الجنسية في الإعلام العام، تساهم في هذا التطبيع.</p>
+                    <div class="mt-4">
+                        <p class="text-gray-700 font-semibold mb-2">انتشار مواقع الإباحية (تقديري):</p>
+                        <div class="chart-container h-64 md:h-72">
+                            <canvas id="pornWebsitePercentageChart"></canvas>
+                        </div>
+                        <p class="text-center text-sm text-gray-600 mt-2">يمثل هذا المخطط نسبة مواقع الويب التي هي إباحية، استنادًا إلى بيانات التقرير (IV.A).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="porn-industry" class="my-16">
+            <h2 class="section-title">صناعة الإباحية: نظرة عميقة على السوق</h2>
+            <p class="text-lg text-gray-700 mb-6">تُعد صناعة الإباحية قوة اقتصادية مؤثرة ذات استراتيجيات تسويق متطورة ونماذج أعمال متنوعة.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                <div class="stat-card bg-indigo-600">
+                    <span class="stat-number">1.15 مليار $</span>
+                    <span class="stat-label">إيرادات صناعة مواقع الإباحية في الولايات المتحدة (2023)</span>
+                    <p class="text-xs mt-1">(المصدر: IV.B)</p>
+                </div>
+                <div class="stat-card bg-orange-500">
+                    <span class="stat-number">287.8 مليار $</span>
+                    <span class="stat-label">قيمة سوق الترفيه للبالغين العالمي (2023)</span>
+                    <p class="text-xs mt-1">(المصدر: IV.B)</p>
+                </div>
+                <div class="stat-card bg-blue-600 md:col-span-2 lg:col-span-1">
+                    <span class="stat-number">8.6%</span>
+                    <span class="stat-label">معدل النمو السنوي المركب المتوقع لسوق الترفيه للبالغين العالمي (حتى 2034)</span>
+                    <p class="text-xs mt-1">(المصدر: IV.B)</p>
+                </div>
+            </div>
+
+            <div class="card mb-8">
+                <h3 class="subsection-title">نمو سوق الترفيه للبالغين العالمي</h3>
+                <div class="chart-container h-80 md:h-96">
+                    <canvas id="globalMarketGrowthChart"></canvas>
+                </div>
+                <p class="text-center text-sm text-gray-600 mt-2">يوضح هذا المخطط النمو المتوقع لسوق الترفيه للبالغين العالمي بناءً على البيانات الواردة في التقرير (IV.B).</p>
+            </div>
             
-            <h3 class="sub-section-title">الجدول 1: نظرة عامة مقارنة بين العادة السرية (الاستمناء) وإدمان الإباحية</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>السمة</th>
-                            <th>الاستمناء (غير قهري)</th>
-                            <th>الاستمناء القهري</th>
-                            <th>إدمان الإباحية/اضطراب السلوك الجنسي القهري (CSBD)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>التعريف</strong></td>
-                            <td>تحفيز ذاتي للأعضاء التناسلية للمتعة/الإشباع الجنسي.</td>
-                            <td>رغبة ملحة لا يمكن السيطرة عليها في ممارسة الاستمناء، تتعارض مع الحياة اليومية.</td>
-                            <td>استخدام قهري لا يمكن السيطرة عليه للمواد الإباحية، يؤثر سلباً على الحياة.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>الدافع الأساسي</strong></td>
-                            <td>استكشاف جنسي طبيعي، تخفيف التوتر، متعة.</td>
-                            <td>تخفيف القلق، سلوك قهري.</td>
-                            <td>إثارة جنسية شديدة، هروب من المشاعر السلبية، عادة متأصلة.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>الاستجابة الكيميائية العصبية (نواقل عصبية رئيسية)</strong></td>
-                            <td>إفراز الدوبامين، الأوكسيتوسين، الإندورفين.</td>
-                            <td>إفراز غير منتظم للدوبامين، استنزاف محتمل للأسيتيل كولين.</td>
-                            <td>إطلاق مكثف للدوبامين، تعطيل نظام المكافأة، تغيرات في حساسية المستقبلات.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>احتمالية القهر/الإدمان</strong></td>
-                            <td>منخفضة، ولكن يمكن أن يصبح قهرياً.</td>
-                            <td>عالية.</td>
-                            <td>عالية، جدل حول تصنيفه كإدمان مقابل اضطراب قهري.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>التصور المجتمعي النموذجي</strong></td>
-                            <td>يُنظر إليه بشكل متزايد على أنه طبيعي وصحي.</td>
-                            <td>إشكالي، قد يشير إلى مشكلات كامنة.</td>
-                            <td>مثير للجدل، يُنظر إليه بشكل متزايد على أنه مشكلة صحية محتملة.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>مناطق الدماغ الرئيسية المعنية (عام)</strong></td>
-                            <td>نظام المكافأة، القشرة الحسية.</td>
-                            <td>نظام المكافأة، الفص الجبهي (ضعف التحكم).</td>
-                            <td>نظام المكافأة (المسار البطني الجبهي، النواة المتكئة)، الفص الجبهي (ضعف الوظائف التنفيذية والتحكم في الاندفاع)، اللوزة الدماغية.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p class="mt-4 text-sm text-gray-600">يوفر هذا الجدول أساسًا لفهم الفروق الدقيقة بين هذه السلوكيات. إن توضيح خصائصها الفردية منذ البداية سيمنع الالتباس ويمهد الطريق للأقسام اللاحقة.</p>
-        </div>
-
-        <div id="masturbation" class="content-section hidden">
-            <h2 class="section-title">II. فهم العادة السرية (الاستمناء)</h2>
-            <p class="mb-4">يهدف هذا القسم إلى تقديم فهم شامل للعادة السرية، بدءًا من تعريفاتها الطبية والنفسية، مرورًا بارتباطاتها البيولوجية العصبية وتأثيراتها الفسيولوجية، وانتهاءً بمناقشة فوائدها الموثقة وعتبة تحولها إلى سلوك إشكالي أو مفرط.</p>
-            
-            <div class="card mb-6">
-                <h3 class="sub-section-title">أ. التعريفات الطبية والنفسية</h3>
-                <p>يُعرَّف الاستمناء، أو ما يُعرف بالعادة السرية، بأنه التحفيز الذاتي للأعضاء التناسلية أو المناطق الحساسة الأخرى في الجسم بهدف الإثارة أو المتعة الجنسية. يُعد هذا السلوك شائعًا بين جميع الأجناس والأعمار، ويلعب دورًا في التطور الجنسي الصحي. يمكن أن يشمل الاستمناء استخدام اليدين، الأصابع، الألعاب الجنسية، أو أشياء أخرى. وهو وسيلة لاستكشاف الجسد، الشعور بالمتعة، والوصول إلى النشوة الجنسية. قد يكون الاستمناء فعلاً فردياً أو قد يشمل شريكًا (الاستمناء المتبادل).</p>
-                <p class="mt-2">تاريخيًا، تباينت وجهات النظر حول الاستمناء. ففي حين نظرت إليه بعض الثقافات القديمة بإيجابية، وصفه علماء اللاهوت والأطباء الأوروبيون في القرنين الثامن عشر والتاسع عشر بشكل سلبي. إلا أن هذه المحرمات تراجعت بشكل عام في القرن العشرين.</p>
-                <p class="mt-2">يُعتبر الاستمناء أيضًا أداة للاكتشاف الجنسي الذاتي. فهو يساعد الفرد على تعلم المزيد عن حياته الجنسية واستكشاف كيفية الحصول على المتعة والوصول إلى النشوة، مما قد يعزز التواصل الجنسي والرضا في العلاقات مع الشريك.</p>
-            </div>
-
-            <div class="card mb-6">
-                <h3 class="sub-section-title">ب. الارتباطات البيولوجية العصبية</h3>
-                <h4 class="text-xl font-medium text-amber-600 mt-4 mb-2">1. التأثير على كيمياء الدماغ والهرمونات والنواقل العصبية</h4>
-                <p>يحفز الاستمناء، وخاصة الوصول إلى النشوة الجنسية، إطلاق مجموعة متنوعة من المواد الكيميائية العصبية والهرمونات في الدماغ:</p>
-                <details class="mt-2">
-                    <summary class="expand-toggle">عرض المواد الكيميائية العصبية والهرمونات (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li><strong>الدوبامين:</strong> يُعرف بأنه "هرمون السعادة"، ويرتبط بالمتعة والمكافأة والتحفيز والتركيز.</li>
-                        <li><strong>الأوكسيتوسين:</strong> يُعرف بـ "هرمون الحب"، ويرتبط بالترابط الاجتماعي وتقليل التوتر وتحسين المزاج وتقدير الذات.</li>
-                        <li><strong>السيروتونين:</strong> يرتبط بالشعور بالسعادة والتفاؤل وتنظيم المزاج.</li>
-                        <li><strong>الإندورفينات:</strong> مسكنات طبيعية للألم، تقلل من التوتر والألم.</li>
-                        <li><strong>البرولاكتين:</strong> يشارك في إدارة الإجهاد والتنظيم العاطفي ووظيفة المناعة.</li>
-                        <li><strong>النورإبينفرين (النورأدرينالين):</strong> يحفز وينظم انتقال الدوبامين ويقلل من الإجهاد.</li>
-                        <li><strong>الأدرينالين:</strong> يقلل من الإجهاد من خلال المساعدة في تنظيم معدل ضربات القلب والأوعية الدموية والتنفس والتمثيل الغذائي.</li>
-                        <li><strong>الإندوكانابينويدات:</strong> تنظم الألم والالتهاب والتمثيل الغذائي ووظيفة القلب والأوعية الدموية والتعلم والذاكرة والقلق والاكتئاب والإدمان.</li>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="subsection-title">نماذج الأعمال واستراتيجيات التسويق</h3>
+                    <p class="text-gray-700 mb-4">تطورت نماذج الأعمال من دور السينما إلى البث عبر الإنترنت، مع تحقيق الدخل عبر الاشتراكات، الإعلانات، والدفع مقابل المشاهدة، ومنصات المبدعين. يُستخدم المحتوى المجاني كاستراتيجية لجذب المستخدمين.</p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-reverse sm:space-x-2 overflow-x-auto py-2">
+                        <div class="flowchart-step">محتوى مجاني</div>
+                        <div class="flowchart-arrow">←</div>
+                        <div class="flowchart-step">جذب المستخدمين</div>
+                        <div class="flowchart-arrow">←</div>
+                        <div class="flowchart-step">نماذج ربح متنوعة (اشتراك، إعلان)</div>
+                    </div>
+                    <p class="text-gray-700 mt-4">تشمل استراتيجيات التسويق معاملة الإباحية كـ"عمل تجاري عادي"، استخدام وسائل التواصل الاجتماعي، تحليل سلوك المستهلك، والتركيز على الابتكار التكنولوجي.</p>
+                     <p class="text-gray-600 text-sm mt-2">المصدر: (IV.B)</p>
+                </div>
+                <div class="card">
+                    <h3 class="subsection-title">أبرز اللاعبين في السوق</h3>
+                    <p class="text-gray-700 mb-3">تهيمن شركات قليلة على جزء كبير من سوق الإباحية العالمي. من بين اللاعبين الرئيسيين المذكورين في التقرير:</p>
+                    <ul class="list-disc ps-5 text-gray-700 space-y-1">
+                        <li>AVN Media Network</li>
+                        <li>Aylo (MindGeek سابقًا - مالكة Pornhub, YouPorn, RedTube)</li>
+                        <li>OnlyFans</li>
+                        <li>Vivid Entertainment</li>
+                        <li>xHamster</li>
+                        <li>Xvideos</li>
                     </ul>
-                </details>
-                <p class="mt-2">بالإضافة إلى ذلك، لوحظ أن مستويات البلازما لمختلف الستيرويدات (مثل البريغنينولون، DHEA، الأندروستنديون، التستوستيرون، DHT، الإسترون، الإستراديول، الكورتيزول) تزداد بشكل كبير بعد الاستمناء لدى الرجال.</p>
-
-                <h4 class="text-xl font-medium text-amber-600 mt-4 mb-2">2. مناطق الدماغ النشطة (بما في ذلك الفص الجبهي) والتأثيرات على الوظيفة التنفيذية</h4>
-                <p>يزيد الاستمناء، وخاصة النشوة الجنسية، من تدفق الدم إلى مناطق متعددة في الدماغ، بما في ذلك المنطقة الحسية، وجذع الدماغ، ومناطق القشرة الجبهية. أثناء القذف عند الذكور، وُجد التنشيط الأساسي في منطقة الانتقال الوسطى الدماغية البينية، بما في ذلك المنطقة السقيفية البطنية (VTA).</p>
-                <p class="mt-2">يشمل التنشيط القشري الحديث التلفيف الجبهي السفلي، والقشرة الجدارية، والقشرة الصدغية السفلية، والطلل، والقشرة البصرية الثانوية. كما يظهر التلفيف الجبهي العلوي الأيسر تنشيطًا. يُظهر المخيخ زيادات قوية في تدفق الدم. وعلى العكس من ذلك، يُلاحظ إلغاء التنشيط في الفص الصدغي الإنسي الأيسر (اللوزة الدماغية).</p>
-                <p class="mt-2">يمكن للاستمناء تحسين التركيز والانتباه. وتشير بعض الدراسات إلى أنه قد يعزز الإدراك. ومع ذلك، يمكن أن يؤدي الاستمناء القهري إلى مشاكل في التركيز والذاكرة.</p>
+                    <p class="text-gray-600 text-sm mt-2">المصدر: (IV.B)</p>
+                </div>
             </div>
+        </section>
 
-            <div class="card mb-6">
-                <h3 class="sub-section-title">ج. التأثيرات الفسيولوجية على الجسم</h3>
-                <p>للاستمناء تأثيرات فسيولوجية متنوعة على الجسم:</p>
-                <details class="mt-2">
-                    <summary class="expand-toggle">الفوائد الصحية المحتملة (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li>يقلل من التوتر ويخفف من التوتر العضلي.</li>
-                        <li>يحسن النوم.</li>
-                        <li>يخفف الآلام، بما في ذلك تقلصات الدورة الشهرية.</li>
-                        <li>قد يقلل القذف المتكرر لدى الذكور من خطر الإصابة بسرطان البروستاتا.</li>
-                        <li>بالنسبة للإناث، قد يقلل من جفاف المهبل والألم أثناء الجماع لدى كبار السن.</li>
-                        <li>يمكن أن يساعد في تخفيف التوتر الجنسي المتزايد أثناء الحمل وتخفيف الأعراض مثل آلام أسفل الظهر.</li>
-                    </ul>
-                </details>
-                <p class="mt-4">ومع ذلك، يمكن أن يؤدي الإفراط في الاستمناء إلى:</p>
-                <details class="mt-2">
-                    <summary class="expand-toggle">الأضرار المحتملة عند الإفراط (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li>أمراض البروستاتا والمسالك البولية بسبب انتشار البكتيريا.</li>
-                        <li>إلحاق الضرر بـ "جوهر الكلى" وزيادة خطر الإصابة بأمراض الكلى.</li>
-                        <li>انخفاض جودة الجماع الجنسي (مثل ضعف الانتصاب، سرعة القذف).</li>
-                        <li>انخفاض عدد الحيوانات المنوية وحركتها وقدرتها على البقاء.</li>
-                        <li>آلام الخصية، ضعف عام.</li>
-                        <li>تهيج الجلد أو وذمة الأعضاء التناسلية.</li>
-                        <li>"متلازمة قبضة الموت" مما يؤدي إلى انخفاض الحساسية.</li>
-                        <li>ضعف، إرهاق، صداع، دوار.</li>
-                        <li>احتمالية ضعف العظام بسبب فقدان المعادن والفيتامينات.</li>
-                        <li>التأثير على القدمين: جفاف، تشقق، التهابات.</li>
-                    </ul>
-                </details>
-            </div>
-
+        <section id="technology" class="my-16">
+            <h2 class="section-title">التكنولوجيا: المحفز والمغير الأكبر</h2>
+            <p class="text-lg text-gray-700 mb-6">تلعب التكنولوجيا دورًا محوريًا في إنتاج، توزيع، واستهلاك المحتوى الجنسي، وتدفع باستمرار حدود الصناعة.</p>
             <div class="card">
-                <h3 class="sub-section-title">د. الفوائد الموثقة وعتبة الاستمناء الإشكالي/المفرط</h3>
-                <p>للاستمناء المعتدل فوائد موثقة تشمل تقليل التوتر، تحسين النوم، زيادة التركيز، تعزيز المزاج، تخفيف الألم، وتحسين الحياة الجنسية. يصبح الاستمناء مشكلة (مفرطًا/قهريًا) في الحالات التالية:</p>
-                <details class="mt-2">
-                    <summary class="expand-toggle">علامات الاستمناء الإشكالي/المفرط (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li>إذا كان يثبط النشاط الجنسي مع الشريك.</li>
-                        <li>يسبب مضاعفات غير مرغوب فيها مثل القذف المبكر/المتأخر.</li>
-                        <li>يتداخل مع العمل اليومي أو المسؤوليات أو الحياة الاجتماعية.</li>
-                        <li>يسبب الشعور بالذنب أو الخزي أو تدني احترام الذات.</li>
-                        <li>يؤدي إلى أعراض شبيهة بالإدمان.</li>
-                        <li>يسبب أذى جسديًا.</li>
-                        <li>يؤدي إلى انخفاض الحساسية الجنسية.</li>
-                        <li>التكرار: يعتبر إشكاليًا إذا أثر سلبًا على الحياة أو العلاقات. تشير بعض المصادر إلى أن "الاستمناء عدة مرات في اليوم" يعتبر مفرطًا.</li>
+                <h3 class="subsection-title">تطور تكنولوجيا الإباحية</h3>
+                <div class="relative">
+                    <div class="border-r-2 border-indigo-200 absolute h-full top-0 right-2 z-0"></div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4 class="font-semibold text-indigo-700">دور السينما والأفلام المطبوعة</h4>
+                            <p class="text-sm text-gray-600">المراحل الأولى للصناعة.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4 class="font-semibold text-indigo-700">أشرطة الفيديو (VHS)</h4>
+                            <p class="text-sm text-gray-600">زيادة الخصوصية وإمكانية الوصول المنزلي.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4 class="font-semibold text-indigo-700">الإنترنت والبث المباشر</h4>
+                            <p class="text-sm text-gray-600">ثورة في التوزيع، محتوى مجاني، وسهولة وصول عالمية.</p>
+                        </div>
+                    </div>
+                     <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4 class="font-semibold text-indigo-700">الهواتف الذكية ووسائل التواصل</h4>
+                            <p class="text-sm text-gray-600">وصول فوري وفي كل مكان، منصات جديدة لنشر المحتوى.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4 class="font-semibold text-indigo-700">التقنيات الناشئة (VR, AR, AI)</h4>
+                            <p class="text-sm text-gray-600">تجارب غامرة، محتوى مُخصص، وتحديات أخلاقية جديدة (مثل التزييف العميق).</p>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-gray-600 text-sm mt-4">المصدر: (IV.B, IV.C)</p>
+            </div>
+        </section>
+
+        <section id="consumer-impact" class="my-16">
+            <h2 class="section-title">المشهد الاستهلاكي والتأثير المجتمعي</h2>
+            <p class="text-lg text-gray-700 mb-6">يؤثر انتشار المحتوى الجنسي على سلوكيات المستهلكين، خاصة الشباب، ويثير نقاشات حول الصحة العامة والأطر التنظيمية.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="subsection-title">تعرض الشباب وتغير المواقف</h3>
+                    <p class="text-gray-700 mb-3">يتعرض الشباب في الولايات المتحدة للإباحية في سن مبكرة وبشكل متكرر. تتغير الأحكام الأخلاقية، حيث يقل احتمال اعتبار الشباب البالغين لها خطأ أخلاقيًا مقارنة بالأجيال الأكبر سنًا.</p>
+                    <div class="chart-container h-72 md:h-80">
+                        <canvas id="youthAttitudesChart"></canvas>
+                    </div>
+                    <p class="text-center text-sm text-gray-600 mt-2">مخطط توضيحي لمواقف الأجيال المختلفة تجاه الإباحية (مستوحى من IV.A).</p>
+                </div>
+                <div class="card">
+                    <h3 class="subsection-title">الاستخدام الإشكالي والصحة العامة</h3>
+                    <p class="text-gray-700 mb-3">يثير الاستخدام القهري للإباحية مخاوف صحية ونفسية واجتماعية. تعتبر بعض الولايات الأمريكية الإباحية "أزمة صحية عامة"، رغم الجدل العلمي حول هذا التصنيف لعامة السكان.</p>
+                    <ul class="list-disc ps-5 text-gray-700 space-y-1 mt-3">
+                        <li>أعراض الاستخدام الإشكالي تشمل: فقدان السيطرة، التحمل، أعراض الانسحاب. (III.A.1)</li>
+                        <li>منظمة الصحة العالمية تعترف بـ "اضطراب السلوك الجنسي القهري" (CSBD). (III.A.1)</li>
+                        <li>تأثيرات استخدام الإباحية مختلطة وغير مرتبطة بشكل عام بالخلل الوظيفي لمعظم الناس. (IV.D.2)</li>
                     </ul>
-                </details>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div id="porn-addiction" class="content-section hidden">
-            <h2 class="section-title">III. فهم إدمان الإباحية</h2>
-            <p class="mb-4">يتناول هذا القسم إدمان الإباحية، مع التركيز على تعريفاته الطبية والنفسية، بما في ذلك الجدل حول تصنيفه كإدمان مقابل اضطراب سلوكي قهري. كما يستعرض الارتباطات البيولوجية العصبية، والتأثيرات الفسيولوجية، والأضرار النفسية والاجتماعية الموثقة.</p>
-
-            <div class="card mb-6">
-                <h3 class="sub-section-title">أ. التعريفات الطبية والنفسية: مفهوم إدمان الإباحية واضطراب السلوك الجنسي القهري (CSBD)</h3>
-                <h4 class="text-xl font-medium text-amber-600 mt-4 mb-2">1. معايير التشخيص والنقاشات العلمية (DSM-5, ICD-11)</h4>
-                <p>يُعرَّف إدمان الإباحية بأنه رغبة مستمرة وشديدة لا يمكن السيطرة عليها في استهلاك المحتوى الإباحي، مما يؤثر سلبًا على الحياة اليومية والعلاقات والعمل. يثير وضع إدمان الإباحية كإدمان رسمي جدلاً علميًا.</p>
-                <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li><strong>الدليل التشخيصي والإحصائي للاضطرابات النفسية (DSM-5/DSM-5-TR):</strong> لا يصنف الاستهلاك القهري للمواد الإباحية كاضطراب عقلي أو إدمان سلوكي.</li>
-                    <li><strong>التصنيف الدولي للأمراض، النسخة الحادية عشرة (ICD-11):</strong> يعترف باضطراب السلوك الجنسي القهري (CSBD) كاضطراب في التحكم في الاندفاع، وليس إدمانًا. يمكن أن يشمل CSBD الاستخدام الإشكالي للمواد الإباحية.</li>
-                </ul>
-                <p class="mt-2">تشمل أعراض إدمان الإباحية/الاستخدام الإشكالي:</p>
-                <details class="mt-2">
-                    <summary class="expand-toggle">أعراض إدمان الإباحية (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li>فقدان السيطرة.</li>
-                        <li>استهلاك مفرط للوقت/الطاقة.</li>
-                        <li>التحمل (الحاجة إلى محتوى أكثر تطرفًا).</li>
-                        <li>أعراض الانسحاب (الأرق، التهيج، الاكتئاب، القلق عند التوقف).</li>
-                        <li>الاستمرار على الرغم من العواقب السلبية.</li>
-                        <li>السلوك الاندفاعي.</li>
-                        <li>استخدام الإباحية للتنظيم العاطفي.</li>
-                        <li>الانشغال، إهمال المسؤوليات، عدم الرضا عن الحياة الجنسية، الرغبة الشديدة.</li>
-                    </ul>
-                </details>
-                <p class="mt-2">لا توجد معايير تشخيص مقبولة عالميًا لإدمان الإباحية؛ غالبًا ما يتم تعريفه من خلال التكرار والعواقب السلبية.</p>
+        <section id="agendas" class="my-16">
+            <h2 class="section-title">الأجندات المتنافسة: قوى السوق الفاعلة</h2>
+            <p class="text-lg text-gray-700 mb-6">يتشكل سوق المحتوى الجنسي بفعل تفاعل العديد من "الأجندات" أو القوى المؤثرة، لكل منها مصالحها واستراتيجياتها.</p>
+            <div class="bg-white p-6 rounded-xl shadow-xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="border border-indigo-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-xl text-indigo-700 mb-2">🎯 الأجندة التجارية/الصناعية</h4>
+                        <p class="text-sm text-gray-600"><strong>الفاعلون:</strong> شركات الإباحية، صناعة الألعاب الجنسية.<br><strong>الاستراتيجيات:</strong> التسويق، التطبيع، الابتكار التكنولوجي.<br><strong>التأثير:</strong> زيادة الاستهلاك، تحقيق الأرباح.</p>
+                    </div>
+                    <div class="border border-orange-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-xl text-orange-700 mb-2">🌍 أجندة التطبيع الثقافي</h4>
+                        <p class="text-sm text-gray-600"><strong>الفاعلون:</strong> وسائل الإعلام، بعض قطاعات الإنترنت، صناعة الإباحية.<br><strong>الاستراتيجيات:</strong> "إباحة" الإعلام، رسائل إيجابية، سهولة الوصول.<br><strong>التأثير:</strong> زيادة القبول، انخفاض الاعتراضات الأخلاقية.</p>
+                    </div>
+                    <div class="border border-blue-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-xl text-blue-700 mb-2">💻 أجندة نشر الإعلام والتكنولوجيا</h4>
+                        <p class="text-sm text-gray-600"><strong>الفاعلون:</strong> شركات التكنولوجيا، منصات التواصل.<br><strong>الاستراتيجيات:</strong> سياسات المنصات، البند 230، أدوات الذكاء الاصطناعي.<br><strong>التأثير:</strong> نشر عالمي للمحتوى، تشكيل المعايير.</p>
+                    </div>
+                    <div class="border border-pink-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-xl text-pink-700 mb-2">♀️ الأجندات النسوية (النقد والدعوة)</h4>
+                        <p class="text-sm text-gray-600"><strong>الفاعلون:</strong> ناشطات وباحثات نسويات.<br><strong>الاستراتيجيات:</strong> نقد الاستغلال، الدعوة لـ"إباحية نسوية".<br><strong>التأثير:</strong> زيادة الوعي، محاولة خلق بدائل أخلاقية.</p>
+                    </div>
+                    <div class="border border-green-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-xl text-green-700 mb-2">⚕️ أجندة قلق الصحة العامة</h4>
+                        <p class="text-sm text-gray-600"><strong>الفاعلون:</strong> هيئات تشريعية، سياسيون، دعاة صحة.<br><strong>الاستراتيجيات:</strong> قرارات "أزمة صحية"، دعوات للبحث والتثقيف.<br><strong>التأثير:</strong> نقاش عام، تبرير محتمل للقيود.</p>
+                    </div>
+                     <div class="border border-purple-200 p-4 rounded-lg hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-xl text-purple-700 mb-2">⚖️ أجندة التنظيم القانوني/السياسي</h4>
+                        <p class="text-sm text-gray-600"><strong>الفاعلون:</strong> مشرعون، النظام القانوني.<br><strong>الاستراتيجيات:</strong> قوانين (حماية القصر، التحقق من العمر)، نقاشات الرقابة.<br><strong>التأثير:</strong> حماية القصر، توازن بين الحرية والضرر.</p>
+                    </div>
+                </div>
+                <p class="text-center text-xs text-gray-500 mt-6">مستوحى من الجدول 4 في التقرير.</p>
             </div>
-            
-            <div class="card mb-6">
-                 <h3 class="sub-section-title">ب. الارتباطات البيولوجية العصبية</h3>
-                <h4 class="text-xl font-medium text-amber-600 mt-4 mb-2">1. التأثير على أنظمة المكافأة في الدماغ (الدوبامين)، واللدونة العصبية، وإزالة الحساسية</h4>
-                <p>يرتبط استهلاك المواد الإباحية، وخاصة القهري منه، بشكل كبير بنظام المكافأة في الدماغ. يُطلق الدوبامين، مما يخلق شعورًا بالمتعة ويعزز السلوك.</p>
-                <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li><strong>اللدونة العصبية:</strong> يحفز إطلاق الدوبامين المستمر تغيرات اللدونة العصبية، مما يعزز التجربة ويحتمل أن يغير خرائط الدماغ للإثارة الجنسية.</li>
-                    <li><strong>إزالة الحساسية/التحمل:</strong> بمرور الوقت، قد يصبح نظام المكافأة أقل حساسية، مما يتطلب محفزات أكثر كثافة أو حداثة.</li>
-                    <li><strong>تفاعلية الإشارة:</strong> يُظهر الأفراد الذين يعانون من الاستخدام الإشكالي تفاعلية إشارة معززة في مناطق الدماغ المرتبطة بتفاعلية إشارة المخدرات.</li>
-                </ul>
+        </section>
 
-                <h4 class="text-xl font-medium text-amber-600 mt-4 mb-2">2. التأثيرات على قشرة الفص الجبهي والوظائف التنفيذية</h4>
-                <p>يرتبط إدمان الإباحية بتغيرات وضعف محتمل في قشرة الفص الجبهي (PFC)، وهي منطقة حاسمة للوظائف التنفيذية.</p>
-                <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li><strong>انخفاض حجم/المادة الرمادية في قشرة الفص الجبهي:</strong> تشير بعض الأبحاث إلى انخفاض في حجم قشرة الفص الجبهي أو المادة الرمادية.</li>
-                    <li><strong>ضعف الوظيفة التنفيذية:</strong> ضعف في اتخاذ القرار، وصعوبة في إدراك العواقب السلبية، وضعف التحكم في النفس/التحكم في الاندفاع.</li>
-                    <li><strong>نقص النشاط الجبهي (Hypofrontality):</strong> يمكن أن يضعف الإدمان قدرة الدماغ على تنظيم الاندفاعات.</li>
-                    <li><strong>تغيرات الاتصال الوظيفي:</strong> وجدت دراسات اختلافات في الاتصال الوظيفي بين مشاهدي الإباحية منخفضي ومرتفعي التردد، مع ضعف في الوظيفة التنفيذية لدى مرتفعي التردد بعد المشاهدة.</li>
-                </ul>
-
-                <h4 class="text-xl font-medium text-amber-600 mt-4 mb-2">3. أدلة على التغيرات الهيكلية في الدماغ</h4>
-                <p>تشير الدراسات إلى وجود صلة بين استهلاك المواد الإباحية والتغيرات الهيكلية في الدماغ.</p>
-                <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li><strong>حجم المادة الرمادية:</strong> انخفاض محتمل في حجم المادة الرمادية في قشرة الفص الجبهي والنواة المذنبة اليمنى.</li>
-                    <li><strong>الاتصال العصبي:</strong> تغير الاتصال بين مناطق المكافأة/العادة ومناطق التحكم التنفيذي.</li>
-                    <li><strong>تقلص الفصوص الجبهية:</strong> أظهرت بعض الدراسات حول الإدمان الجنسي أن الفصوص الجبهية أصبحت أصغر.</li>
-                </ul>
-            </div>
-
-            <div class="card mb-6">
-                <h3 class="sub-section-title">ج. التأثيرات الفسيولوجية على الجسم والصحة الجنسية</h3>
-                <p>تشمل التأثيرات الفسيولوجية الشائعة لإدمان الإباحية:</p>
-                <details class="mt-2">
-                    <summary class="expand-toggle">التأثيرات الفسيولوجية (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li><strong>الخلل الوظيفي الجنسي:</strong> ضعف الانتصاب (ED)، سرعة القذف، مشاكل في الرغبة الجنسية والإثارة.</li>
-                        <li><strong>انخفاض الاهتمام/الرضا الجنسي الواقعي:</strong> تفضيل "الجنس الافتراضي"، قد تجعل التجارب الواقعية غير كافية للإثارة.</li>
-                        <li><strong>التغيرات الهرمونية ونوعية السائل المنوي (لدى الذكور):</strong> انخفاض مستويات البرولاكتين، FSH، البروجسترون، انخفاض تركيز الحيوانات المنوية/العدد الإجمالي. ارتبط ارتفاع وتيرة الاستخدام بانخفاض هرمون الاستروجين.</li>
-                        <li><strong>مظاهر جسدية أخرى:</strong> التأثير على النوم، التحمل الجسدي، أعراض الانسحاب (الأرق، التهيج).</li>
-                    </ul>
-                </details>
-            </div>
-
+        <section id="conclusion" class="my-16">
+            <h2 class="section-title">الخلاصة والتوجهات المستقبلية</h2>
             <div class="card">
-                <h3 class="sub-section-title">د. الأضرار النفسية والاجتماعية والعلاقاتية الموثقة</h3>
-                <p>لإدمان الإباحية أضرار نفسية واجتماعية وعلاقاتية كبيرة:</p>
-                <details class="mt-2">
-                    <summary class="expand-toggle">الأضرار النفسية والاجتماعية والعلاقاتية (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li><strong>النفسية:</strong> صعوبة التحكم، الضيق، الخزي، الذنب، تدني احترام الذات، الاكتئاب، القلق، الأفكار الانتحارية، خلل التنظيم العاطفي.</li>
-                        <li><strong>الاجتماعية:</strong> إهمال المسؤوليات، العزلة الاجتماعية، فقدان الاهتمام بالأنشطة الأخرى، الإضرار بالعلاقات، ضعف الأداء الاجتماعي، احتمالية فقدان الوظيفة، المشاكل المالية.</li>
-                        <li><strong>العلاقاتية:</strong> انخفاض الحميمية، الانفصال العاطفي، إهمال الشريك، مشاكل الثقة، انخفاض الرضا عن العلاقة، معاملة الشركاء كأشياء.</li>
-                        <li><strong>المعرفية:</strong> ضعف التركيز، مشاكل الذاكرة.</li>
-                    </ul>
-                </details>
+                <p class="text-lg text-gray-700 mb-4">تُظهر صناعة المحتوى الجنسي والألعاب الجنسية نموًا كبيرًا وتطورًا مستمرًا، مدفوعة بقوى تجارية وتكنولوجية وثقافية معقدة. التطبيع المتزايد، خاصة للإباحية، يسهل الوصول والاستهلاك، بينما تثير التقنيات الجديدة مثل الذكاء الاصطناعي فرصًا وتحديات أخلاقية جديدة.</p>
+                <p class="text-lg text-gray-700 mb-4">في المقابل، تتصاعد الأصوات النقدية من وجهات نظر نسوية وصحية عامة، وتتطور الأطر القانونية لمحاولة موازنة حرية التعبير مع منع الضرر، خاصة حماية القصر. المستقبل سيشهد على الأرجح استمرار هذا التفاعل الديناميكي بين الابتكار التجاري، والاستجابات المجتمعية، والمحاولات التنظيمية.</p>
+                <p class="text-lg text-gray-700">يبقى فهم هذه الاتجاهات وتأثيراتها المتعددة أمرًا بالغ الأهمية للأفراد وصناع السياسات والباحثين على حد سواء، لضمان تعامل أكثر وعيًا ومسؤولية مع هذا المشهد المتغير باستمرار.</p>
             </div>
-        </div>
-        
-        <div id="comparison" class="content-section hidden">
-            <h2 class="section-title">IV. مقارنة التأثيرات والأضرار</h2>
-            <p class="mb-4">يقدم هذا القسم مقارنة موجزة للتأثيرات البيولوجية العصبية والأضرار الموثقة لكل من الاستمناء (خاصة عند الإفراط) وإدمان الإباحية، استنادًا إلى الجداول الواردة في التقرير الأصلي. الهدف هو توضيح أوجه التشابه والاختلاف الرئيسية.</p>
-
-            <h3 class="sub-section-title">الجدول 2: ملخص التأثيرات البيولوجية العصبية الرئيسية للاستمناء وإدمان الإباحية على الدماغ</h3>
-            <div class="table-container mb-8">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>السلوك</th>
-                            <th>النواقل العصبية الرئيسية المتأثرة</th>
-                            <th>مناطق الدماغ الرئيسية المعنية</th>
-                            <th>التأثيرات على الفص الجبهي/الوظيفة التنفيذية</th>
-                            <th>التغيرات الهيكلية (إن وجدت)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>الاستمناء (غير قهري)</strong></td>
-                            <td>زيادة: دوبامين، سيروتونين، أوكسيتوسين، إندورفين</td>
-                            <td>VTA، المهاد، القشرة الحسية، المخيخ، الفص الجبهي</td>
-                            <td>تحسين التركيز المحتمل، مشاركة في اتخاذ القرار</td>
-                            <td>زيادة تدفق الدم إلى مناطق القشرة الجبهية</td>
-                        </tr>
-                        <tr>
-                            <td><strong>الاستمناء القهري</strong></td>
-                            <td>خلل في الدوبامين، استنزاف محتمل للأسيتيل كولين</td>
-                            <td>نظام المكافأة، الفص الجبهي</td>
-                            <td>مشاكل في التركيز والذاكرة</td>
-                            <td>غير محدد بوضوح</td>
-                        </tr>
-                        <tr>
-                            <td><strong>إدمان الإباحية/CSBD</strong></td>
-                            <td>إطلاق مكثف للدوبامين، خلل في نظام المكافأة، تغيرات في حساسية المستقبلات</td>
-                            <td>VTA، النواة المتكئة، قشرة الفص الجبهي (DLPFC, OFC, vmPFC)، اللوزة، المخطط</td>
-                            <td>ضعف اتخاذ القرار، التحكم في الاندفاع، التنظيم الذاتي، الذاكرة العاملة</td>
-                            <td>انخفاض محتمل في حجم المادة الرمادية (PFC، النواة المذنبة)، تغير الاتصال العصبي</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3 class="sub-section-title">الجدول 3: ملخص الأضرار الموثقة للإفراط في الاستمناء وإدمان الإباحية</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>فئة الضرر</th>
-                            <th>الإفراط في الاستمناء/الاستمناء القهري</th>
-                            <th>إدمان الإباحية/CSBD</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>فسيولوجي (عام)</strong></td>
-                            <td>أمراض البروستاتا والمسالك البولية، ضرر محتمل للكلى، ضعف، إرهاق، صداع، دوار</td>
-                            <td>اضطرابات النوم، تحمل جسدي، أعراض انسحاب</td>
-                        </tr>
-                        <tr>
-                            <td><strong>الصحة الجنسية (خاص)</strong></td>
-                            <td>صعوبات القذف، ضعف الانتصاب، انخفاض عدد/جودة الحيوانات المنوية، انخفاض الحساسية</td>
-                            <td>ضعف الانتصاب (PIED)، انخفاض الرغبة الجنسية الواقعية، تغيرات هرمونية، انخفاض الحيوانات المنوية، سلوكيات جنسية خطرة</td>
-                        </tr>
-                        <tr>
-                            <td><strong>نفسي</strong></td>
-                            <td>الشعور بالذنب، الخزي، تدني احترام الذات، القلق، الاكتئاب</td>
-                            <td>ضيق نفسي شديد، خزي، ذنب، تدني احترام الذات، اكتئاب، قلق، أفكار انتحارية</td>
-                        </tr>
-                        <tr>
-                            <td><strong>اجتماعي/علاقاتي</strong></td>
-                            <td>انخفاض الاهتمام بالجنس الواقعي، تأثير على العلاقات</td>
-                            <td>إهمال المسؤوليات، عزلة اجتماعية، تضرر العلاقات، تشييء الشركاء</td>
-                        </tr>
-                        <tr>
-                            <td><strong>معرفي</strong></td>
-                            <td>صعوبة التركيز، مشاكل الذاكرة</td>
-                            <td>ضعف التركيز، مشاكل الذاكرة، ضعف اتخاذ القرار</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="agendas" class="content-section hidden">
-            <h2 class="section-title">V. الأجندات المجتمعية والثقافية: تأثير الولايات المتحدة</h2>
-            <p class="mb-4">يستكشف هذا القسم "الأجندات" المجتمعية والثقافية المتنوعة المحيطة بالعادة السرية والإباحية، مع التركيز بشكل خاص على الديناميكيات والتأثيرات السائدة في الولايات المتحدة ودورها في النشر العالمي. يتناول القسم تطبيع هذه السلوكيات، ودور صناعة الإباحية، وتأثير وسائل الإعلام ومنصات التكنولوجيا، بالإضافة إلى وجهات النظر النقدية والأجندات المضادة.</p>
-
-            <div class="card mb-6">
-                <h3 class="sub-section-title">أ. تطبيع الاستمناء والإباحية: التحولات الثقافية والتصوير الإعلامي</h3>
-                <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li><strong>تطبيع الاستمناء:</strong> يحظى بقبول متزايد ويُنظر إليه على أنه نشاط جنسي صحي. تسوق صناعة الألعاب الجنسية منتجات تعزز الاستمناء كرعاية ذاتية.</li>
-                    <li><strong>تطبيع الإباحية:</strong> أصبح استهلاك الإباحية طبيعيًا بشكل متزايد، ويرجع ذلك جزئيًا إلى سهولة الوصول إلى الإنترنت. "إباحة" وسائل الإعلام تشير إلى زيادة الصراحة الجنسية في وسائل الإعلام الرئيسية.</li>
-                    <li><strong>السياق الأمريكي:</strong> تنتشر الإباحية على نطاق واسع عبر الإنترنت في الولايات المتحدة. تختلف الأحكام الأخلاقية، حيث يقل احتمال اعتبار الشباب لها خطأ أخلاقيًا.</li>
-                </ul>
-            </div>
-
-            <div class="card mb-6">
-                <h3 class="sub-section-title">ب. صناعة الإباحية في الولايات المتحدة: القوة الاقتصادية، استراتيجيات التسويق، والمصالح التجارية</h3>
-                 <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li><strong>الحجم الاقتصادي:</strong> إيرادات ضخمة لصناعة الإباحية في الولايات المتحدة والعالم.</li>
-                    <li><strong>نماذج الأعمال:</strong> تحولت من دور السينما إلى البث عبر الإنترنت، مع تحقيق الدخل من الاشتراكات والإعلانات ومنصات المتابعين.</li>
-                    <li><strong>استراتيجيات التسويق:</strong> معاملة الإباحية كعمل تجاري عادي، استخدام وسائل التواصل الاجتماعي، تحليل سلوك المستهلك، الابتكار التكنولوجي (الواقع الافتراضي، الذكاء الاصطناعي).</li>
-                    <li><strong>المصالح التجارية:</strong> مدفوعة بالربح، تهدف إلى إبقاء المستخدمين يعودون باستمرار.</li>
-                </ul>
-            </div>
-
-            <div class="card mb-6">
-                <h3 class="sub-section-title">ج. وسائل الإعلام الأمريكية ومنصات التواصل الاجتماعي وشركات التكنولوجيا: النشر العالمي</h3>
-                <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li><strong>تأثير وسائل الإعلام الأمريكية:</strong> تحتوي وسائل الإعلام الشبابية الأمريكية على محتوى جنسي يؤثر على مواقف المراهقين.</li>
-                    <li><strong>منصات التواصل الاجتماعي والتكنولوجيا:</strong> توفر طرقًا سهلة لاستكشاف المحتوى الجنسي. تواجه شركات التكنولوجيا انتقادات لدورها في الترويج للتزييف العميق الجنسي. الهواتف الذكية تجعل الإباحية متاحة على الفور.</li>
-                    <li><strong>النشر العالمي:</strong> يتم الوصول إلى الإباحية عالميًا عبر الإنترنت.</li>
-                </ul>
-            </div>
-            
-            <div class="card mb-6">
-                <h3 class="sub-section-title">د. وجهات نظر نقدية وأجندات مضادة</h3>
-                <h4 class="text-xl font-medium text-amber-600 mt-4 mb-2">1. الانتقادات النسوية</h4>
-                 <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li><strong>النسوية المناهضة للإباحية:</strong> تجادل بأن الإباحية ضارة بالنساء، وتسهل العنف، وتنطوي على الاستغلال.</li>
-                    <li><strong>النسوية الإيجابية تجاه الجنس/المؤيدة للإباحية:</strong> تتبنى بعض النسويات أشكالًا من الإباحية كتعبير نسوي، وتدعي "الإباحية النسوية" أنها تعالج المخاوف بشأن ممارسات الإنتاج.</li>
-                </ul>
-                <h4 class="text-xl font-medium text-amber-600 mt-4 mb-2">2. خطابات الصحة العامة</h4>
-                 <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li>تعتبر بعض الولايات الأمريكية الإباحية أزمة صحية عامة، مدعية أنها تزيد من العنف والطلب على الاتجار بالجنس ولها آثار ضارة.</li>
-                    <li><strong>الحجج المضادة:</strong> الادعاءات غالبًا غير مدعومة بالبحوث؛ تأثيرات استخدام الإباحية مختلطة. يدعو بعض الباحثين إلى إدراجها في التثقيف الجنسي.</li>
-                </ul>
-                 <h4 class="text-xl font-medium text-amber-600 mt-4 mb-2">3. الأطر القانونية والسياسية في الولايات المتحدة</h4>
-                <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li>يمكن للبالغين الوصول إلى المواد الإباحية بشكل قانوني، مع قيود على إباحية الأطفال وتوزيعها على القصر.</li>
-                    <li>تفرض بعض الولايات قوانين التحقق من العمر.</li>
-                    <li>يحمي البند 230 مواقع الويب من المسؤولية عن محتوى المستخدمين، ولكن ليس عن المحتوى الذي تنشئه المنصة.</li>
-                </ul>
-            </div>
-
-            <h3 class="sub-section-title">الجدول 4: نظرة عامة على "الأجندات" والتأثيرات المحددة (التركيز على الولايات المتحدة)</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>نوع الأجندة/التأثير</th>
-                            <th>الفاعلون/المحركون الرئيسيون (تركيز أمريكي)</th>
-                            <th>الاستراتيجيات/المظاهر الشائعة</th>
-                            <th>التأثيرات المبلغ عنها/المحتملة</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>تجاري/صناعي</strong></td>
-                            <td>شركات الإباحية، صناعة الألعاب الجنسية</td>
-                            <td>التسويق (التطبيع، المحتوى المجاني، الابتكار التكنولوجي)</td>
-                            <td>زيادة الاستهلاك، الإدمان، ربح اقتصادي</td>
-                        </tr>
-                        <tr>
-                            <td><strong>التطبيع الثقافي (الاستمناء)</strong></td>
-                            <td>صناعة الألعاب الجنسية، بعض خبراء الصحة</td>
-                            <td>تسويق الألعاب الجنسية كعافية، تصوير إيجابي</td>
-                            <td>زيادة القبول، انخفاض وصمة العار</td>
-                        </tr>
-                        <tr>
-                            <td><strong>التطبيع الثقافي (الإباحية)</strong></td>
-                            <td>وسائل الإعلام، صناعة الإباحية</td>
-                            <td>"إباحة" وسائل الإعلام، رسائل "إيجابية الإباحية"</td>
-                            <td>زيادة الاستهلاك، انخفاض الاعتراضات الأخلاقية</td>
-                        </tr>
-                        <tr>
-                            <td><strong>نشر وسائل الإعلام والتكنولوجيا</strong></td>
-                            <td>شركات التكنولوجيا الكبرى، منصات التواصل</td>
-                            <td>سياسات المنصات، البند 230، أدوات الذكاء الاصطناعي</td>
-                            <td>نشر عالمي للمحتوى، تشكيل المعايير الجنسية</td>
-                        </tr>
-                        <tr>
-                            <td><strong>نقد نسوي (مناهض للإباحية)</strong></td>
-                            <td>ناشطات/باحثات نسويات</td>
-                            <td>كتابات، نشاط</td>
-                            <td>زيادة الوعي بالاستغلال والتشييء</td>
-                        </tr>
-                        <tr>
-                            <td><strong>دعوة نسوية (إيجابية تجاه الجنس)</strong></td>
-                            <td>ناشطات/منتجات إباحية نسوية</td>
-                            <td>إنتاج "إباحية نسوية"</td>
-                            <td>محاولة إنشاء بدائل أخلاقية</td>
-                        </tr>
-                        <tr>
-                            <td><strong>قلق الصحة العامة</strong></td>
-                            <td>هيئات تشريعية، سياسيون</td>
-                            <td>قرارات "أزمة صحية عامة"</td>
-                            <td>زيادة النقاش، تبرير محتمل للقيود</td>
-                        </tr>
-                        <tr>
-                            <td><strong>تنظيم قانوني/سياسي</strong></td>
-                            <td>النظام القانوني، مشرعون</td>
-                            <td>قوانين (إباحية الأطفال، التحقق من العمر)، البند 230</td>
-                            <td>حماية القصر، توازن بين الحرية والضرر</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="conclusion" class="content-section hidden">
-            <h2 class="section-title">VI. الخلاصة والتوصيات</h2>
-            <p class="mb-4">يختتم هذا التقرير بملخص للنتائج الرئيسية المتعلقة بالعادة السرية وإدمان الإباحية، مع التركيز على طبيعتهما المزدوجة، وتأثيراتهما البيولوجية العصبية والفسيولوجية، والأضرار المرتبطة بهما، بالإضافة إلى دور الأجندات المجتمعية. ويقدم توصيات موجهة للأفراد، وقطاع الصحة العامة، وشركات التكنولوجيا وصناع السياسات، والبحث المستقبلي.</p>
-            
-            <div class="card mb-6">
-                <h3 class="sub-section-title">ملخص النتائج الرئيسية</h3>
-                <ul class="list-disc ps-10 mt-2 text-gray-700">
-                    <li>تم التأكيد على الطبيعة المزدوجة للاستمناء (صحي مقابل قهري) والفروق البيولوجية العصبية والفسيولوجية.</li>
-                    <li>تم التأكيد على الوضع المعقد لإدمان الإباحية/اضطراب السلوك الجنسي القهري، وتأثيره الكبير على أنظمة المكافأة في الدماغ وقشرة الفص الجبهي، والأضرار المرتبطة به.</li>
-                    <li>تم تلخيص الدور القوي للأجندات التجارية والثقافية والتكنولوجية التي تركز على الولايات المتحدة في تشكيل مشهد استهلاك الإباحية وتطبيعها.</li>
-                    <li>تم الاعتراف بوجهات النظر النقدية التي تتحدى هذه الأجندات المهيمنة.</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3 class="sub-section-title">التوصيات</h3>
-                <details class="mt-2">
-                    <summary class="expand-toggle"><strong>للأفراد</strong> (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li>تعزيز الوعي الذاتي فيما يتعلق بأنماط الاستخدام الشخصي.</li>
-                        <li>تشجيع طلب المساعدة المتخصصة إذا أصبح الاستخدام قهريًا.</li>
-                        <li>الدعوة إلى محو الأمية الإعلامية النقدية.</li>
-                    </ul>
-                </details>
-                <details class="mt-2">
-                    <summary class="expand-toggle"><strong>للصحة العامة</strong> (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li>دعم التثقيف الجنسي الشامل القائم على الأدلة.</li>
-                        <li>تطوير برامج وقاية وتدخل مستهدفة.</li>
-                        <li>تمويل المزيد من البحوث الدقيقة وغير المتحيزة.</li>
-                    </ul>
-                </details>
-                <details class="mt-2">
-                    <summary class="expand-toggle"><strong>لشركات التكنولوجيا وصناع السياسات (تركيز أمريكي)</strong> (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li>تشجيع قدر أكبر من الشفافية والمسؤولية الأخلاقية.</li>
-                        <li>إعادة تقييم الأطر القانونية مثل البند 230 في سياق الذكاء الاصطناعي.</li>
-                        <li>دعم السياسات التي تحمي القصر من التعرض المبكر.</li>
-                    </ul>
-                </details>
-                <details class="mt-2">
-                    <summary class="expand-toggle"><strong>للبحث المستقبلي</strong> (انقر للتوسيع)</summary>
-                    <ul class="list-disc ps-10 mt-2 expand-content text-gray-700">
-                        <li>دراسات طولية حول التطور البيولوجي العصبي.</li>
-                        <li>دراسات مقارنة حول فعالية المناهج العلاجية.</li>
-                        <li>بحث في العوامل الاجتماعية والاقتصادية في إنتاج الإباحية.</li>
-                        <li>دراسات عبر ثقافية حول تأثير الإباحية المعولمة.</li>
-                    </ul>
-                </details>
-            </div>
-             <p class="mt-6 text-sm text-gray-600">تتطلب الحلول الفعالة نهجًا متعدد الجوانب يعالج البيولوجيا العصبية الفردية وعلم النفس، والتثقيف الصحي العام، والتأثير الجهازي للأجندات التجارية والثقافية القوية.</p>
-        </div>
+        </section>
     </main>
 
-    <footer class="bg-amber-50 text-amber-700 text-center p-4 mt-8">
-        <p class="text-sm">&copy; 2024 تطبيق تحليل العادة السرية والإباحية. جميع الحقوق محفوظة للتقرير الأصلي.</p>
+    <footer class="footer">
+        <p class="text-sm">إنفوجرافيك مستوحى من تقرير "العادة السرية وإدمان الإباحية: التأثيرات الشاملة على الدماغ والجسم والأجندات الثقافية المعاصرة".</p>
+        <p class="text-xs mt-1">تم إنشاء هذا الإنفوجرافيك لأغراض توضيحية وعرض البيانات.</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navButtons = document.querySelectorAll('.nav-button');
-            const contentSections = document.querySelectorAll('.content-section');
+        document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-
-            function showSection(targetId) {
-                contentSections.forEach(section => {
-                    if (section.id === targetId) {
-                        section.classList.remove('hidden');
-                    } else {
-                        section.classList.add('hidden');
-                    }
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
                 });
-                navButtons.forEach(button => {
-                    if (button.dataset.target === targetId) {
-                        button.classList.add('active');
-                    } else {
-                        button.classList.remove('active');
-                    }
-                });
-                // Scroll to top of page for better UX on section change
-                window.scrollTo(0, 0);
             }
 
-            navButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const targetId = button.dataset.target;
-                    showSection(targetId);
-                    if (mobileMenu.classList.contains('hidden') === false) {
-                        mobileMenu.classList.add('hidden');
+            // Smooth scroll for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        // Update active nav item
+                        document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                        this.classList.add('active');
+
+                        // Close mobile menu if open
+                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
                     }
                 });
             });
-
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // Expand/collapse functionality for details/summary like elements
-            const expandToggles = document.querySelectorAll('.expand-toggle');
-            expandToggles.forEach(toggle => {
-                // Check if it's a summary element for native details behavior
-                if (toggle.tagName.toLowerCase() !== 'summary') {
-                    const content = toggle.nextElementSibling;
-                    if (content && content.classList.contains('expand-content')) {
-                        content.classList.add('hidden'); // Start collapsed
-                        toggle.addEventListener('click', () => {
-                            content.classList.toggle('hidden');
-                        });
-                    }
+            
+            // Function to wrap labels for Chart.js
+            function wrapLabels(label, maxWidth) {
+                if (typeof label !== 'string' || label.length <= maxWidth) {
+                    return label;
                 }
-            });
+                const words = label.split(' ');
+                let lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + ' ' + word).trim().length > maxWidth && currentLine.length > 0) {
+                        lines.push(currentLine.trim());
+                        currentLine = word;
+                    } else {
+                        currentLine = (currentLine + ' ' + word).trim();
+                    }
+                });
+                if (currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                }
+                return lines;
+            }
+
+            // Tooltip configuration
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                }
+                return label;
+            };
+
+            // Chart 1: Porn Website Percentage
+            const pornWebsiteCtx = document.getElementById('pornWebsitePercentageChart');
+            if (pornWebsiteCtx) {
+                new Chart(pornWebsiteCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: [wrapLabels('مواقع إباحية', 16), wrapLabels('مواقع أخرى', 16)],
+                        datasets: [{
+                            label: 'نسبة مواقع الويب',
+                            data: [12, 88], // Data from report IV.A: 12%
+                            backgroundColor: ['#FF9800', '#2196F3'],
+                            borderColor: ['#FFFFFF', '#FFFFFF'],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: { family: 'Tajawal', size: 12 },
+                                    color: '#212121'
+                                }
+                            },
+                            title: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: { title: tooltipTitleCallback },
+                                bodyFont: { family: 'Tajawal' },
+                                titleFont: { family: 'Tajawal' }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Chart 2: Global Adult Entertainment Market Growth
+            const globalMarketCtx = document.getElementById('globalMarketGrowthChart');
+            if (globalMarketCtx) {
+                new Chart(globalMarketCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2023', '2025', '2028', '2031', '2034'], // Illustrative years based on projection
+                        datasets: [{
+                            label: wrapLabels('القيمة السوقية (مليار دولار أمريكي)', 20),
+                            data: [287.8, 350, 450, 570, 706.2], // Start 287.8, End 706.2 by 2034 (IV.B) - intermediate values are illustrative
+                            borderColor: '#FF9800',
+                            backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                title: { display: true, text: wrapLabels('القيمة (مليار $)',16), font: { family: 'Tajawal' }, color: '#212121' },
+                                ticks: { font: { family: 'Tajawal' }, color: '#212121' }
+                            },
+                            x: {
+                                title: { display: true, text: wrapLabels('السنة',16), font: { family: 'Tajawal' }, color: '#212121' },
+                                ticks: { font: { family: 'Tajawal' }, color: '#212121' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: true, position: 'top', labels: { font: { family: 'Tajawal' }, color: '#212121' } },
+                            tooltip: {
+                                callbacks: { title: tooltipTitleCallback },
+                                bodyFont: { family: 'Tajawal' },
+                                titleFont: { family: 'Tajawal' }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Chart 3: Youth Attitudes Towards Pornography (Illustrative based on IV.A)
+            const youthAttitudesCtx = document.getElementById('youthAttitudesChart');
+            if (youthAttitudesCtx) {
+                new Chart(youthAttitudesCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: [wrapLabels('الجيل الأكبر سناً', 16), wrapLabels('الشباب البالغون', 16)],
+                        datasets: [{
+                            label: wrapLabels('نسبة من يرون الإباحية خطأ أخلاقيًا (توضيحي)', 25),
+                            data: [65, 35], // Illustrative data based on text "يقل احتمال اعتبار الشباب البالغين لها خطأ أخلاقيًا مقارنة بالأجيال الأكبر سنًا"
+                            backgroundColor: ['#2196F3', '#FF9800'],
+                            borderColor: ['#1A237E', '#E65100'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                max: 100,
+                                title: { display: true, text: wrapLabels('النسبة المئوية (%)',16), font: { family: 'Tajawal' }, color: '#212121' },
+                                ticks: { font: { family: 'Tajawal' }, color: '#212121' }
+                            },
+                            y: {
+                                ticks: { font: { family: 'Tajawal', size: 10 }, color: '#212121' }
+                            }
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: { title: tooltipTitleCallback },
+                                bodyFont: { family: 'Tajawal' },
+                                titleFont: { family: 'Tajawal' }
+                            }
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>
