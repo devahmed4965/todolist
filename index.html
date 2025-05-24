@@ -6,18 +6,6 @@
     <title>إنفوجرافيك: اتجاهات صناعة المحتوى الجنسي وأبحاث السوق</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Visualization Choices:
-        - حجم سوق الإباحية في الولايات المتحدة (IV.B): الهدف: إعلام. التصور: رقم كبير (نص HTML). التبرير: إبراز إحصائية رئيسية. (لا SVG)
-        - نمو سوق الترفيه للبالغين العالمي (IV.B): الهدف: تغيير. التصور: مخطط خطي (Chart.js). التبرير: عرض توقعات النمو. (لا SVG)
-        - اللاعبون الرئيسيون في صناعة الإباحية (IV.B): الهدف: تنظيم. التصور: قائمة HTML منسقة. التبرير: عرض الفاعلين في السوق. (لا SVG)
-        - نماذج أعمال صناعة الإباحية (IV.B): الهدف: تنظيم. التصور: مخطط تدفق مبسط (HTML/CSS). التبرير: توضيح العمليات التجارية. (لا SVG)
-        - انتشار الإباحية على الإنترنت (IV.A): الهدف: إعلام. التصور: مخطط دائري مجوف (Chart.js). التبرير: عرض نسبة انتشار مواقع الإباحية. (لا SVG)
-        - تطور تكنولوجيا الإباحية (IV.B, IV.C): الهدف: تغيير/تنظيم. التصور: خط زمني مبسط (HTML/CSS). التبرير: عرض التطور التكنولوجي. (لا SVG)
-        - مواقف الشباب تجاه الإباحية (IV.A): الهدف: مقارنة. التصور: مخطط شريطي (Chart.js). التبرير: عرض تغير المواقف الأخلاقية (بيانات توضيحية مستوحاة من النص). (لا SVG)
-        - الأجندات المتنافسة (IV.D): الهدف: علاقات. التصور: مخطط مفاهيمي (HTML/CSS). التبرير: إظهار القوى المتفاعلة في السوق. (لا SVG)
-        - ✨ توليد توقعات مستقبلية إضافية (الخلاصة): الهدف: إعلام/تحليل. التصور: نص مولد بواسطة Gemini API في نافذة منبثقة. التبرير: تقديم رؤى إضافية. (Gemini API)
-        - ✨ شرح الاتجاه (تطور التكنولوجيا): الهدف: إعلام. التصور: نص مولد بواسطة Gemini API في نافذة منبثقة. التبرير: تبسيط المفاهيم المعقدة. (Gemini API)
-    -->
     <style>
         body {
             font-family: 'Tajawal', sans-serif;
@@ -528,7 +516,7 @@
                 console.error("Error initializing Youth Attitudes Chart:", e);
             }
 
-            // Gemini API Integration
+            // Gemini API Simulation
             const geminiModal = document.getElementById('geminiModal');
             const geminiModalTitle = document.getElementById('geminiModalTitle');
             const geminiModalContent = document.getElementById('geminiModalContent');
@@ -536,10 +524,15 @@
             const closeGeminiModalButton = document.getElementById('closeGeminiModalButton');
             const allGeminiButtons = document.querySelectorAll('.gemini-button');
 
+            const simulatedResponses = {
+                future_insights: "بناءً على التحليل، إليك بعض التوقعات المستقبلية المحتملة:\n\n- **تخصيص فائق باستخدام الذكاء الاصطناعي:** ستتجه المنصات نحو استخدام الذكاء الاصطناعي لتقديم تجارب شديدة التخصيص، مما يزيد من تفاعل المستخدمين ولكنه يثير مخاوف أعمق بشأن الخصوصية والتلاعب السلوكي.\n\n- **نمو سوق العافية الجنسية:** ستظهر فرص سوقية جديدة في مجال \"العافية الجنسية\" الذي يجمع بين الصحة النفسية والجسدية والجنسية، مع التركيز على المنتجات والخدمات التي تعزز العلاقات الصحية.\n\n- **تحديات تنظيمية عالمية:** مع نمو السوق، ستزداد الضغوط من أجل وضع لوائح تنظيمية دولية موحدة، خاصة فيما يتعلق بالتحقق من العمر والمحتوى المنتج بواسطة الذكاء الاصطناعي.",
+                internet_streaming_impact: "أحدث الإنترنت والبث المباشر ثورة في صناعة الإباحية عن طريق إزالة حواجز التوزيع التقليدية. أدى ذلك إلى وفرة هائلة في المحتوى المجاني، مما جعل الوصول إليه فوريًا وعالميًا، وفي نفس الوقت قلل من ربحية الاستوديوهات الكبيرة وفتح الباب أمام نماذج أعمال جديدة تعتمد على الاشتراكات ومنصات المبدعين.",
+                emerging_tech_impact: "التقنيات الناشئة مثل الواقع الافتراضي (VR) والواقع المعزز (AR) تعد بتقديم تجارب غامرة وتفاعلية تزيد من عمق الانغماس. بينما يفتح الذكاء الاصطناعي (AI) الباب لإنشاء محتوى مخصص وتزييف عميق، مما يطرح تحديات أخلاقية وقانونية كبيرة تتعلق بالموافقة والأصالة في السوق."
+            };
 
             function showGeminiModal(title) {
                 geminiModalTitle.textContent = title || '✨ رؤى من Gemini';
-                geminiModalContent.innerHTML = ''; // Clear previous content
+                geminiModalContent.innerHTML = ''; 
                 geminiLoadingIndicator.classList.remove('hidden');
                 geminiModal.classList.remove('hidden');
                 allGeminiButtons.forEach(btn => btn.disabled = true);
@@ -552,63 +545,21 @@
 
             closeGeminiModalButton.addEventListener('click', hideGeminiModal);
 
-            async function callGeminiApi(promptText, modalTitleForDisplay) {
+            async function simulateGeminiApiCall(promptKey, modalTitleForDisplay) {
                 showGeminiModal(modalTitleForDisplay);
                 
-                let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
-                const payload = { contents: chatHistory };
-                const apiKey = ""; 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                // Simulate network delay
+                await new Promise(resolve => setTimeout(resolve, 1200));
 
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        let errorMsg = `فشل طلب الـ API بالحالة ${response.status}.`;
-                        try {
-                            const errorData = await response.json();
-                            console.error('Gemini API Error Response:', errorData);
-                            errorMsg += ` ${errorData.error?.message || 'خطأ غير معروف من الخادم.'}`;
-                        } catch (e) {
-                            errorMsg += ` ${response.statusText || 'تعذر تحليل رسالة الخطأ من الخادم.'}`;
-                        }
-                        throw new Error(errorMsg);
-                    }
-
-                    const result = await response.json();
-                    
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        geminiModalContent.textContent = text;
-                    } else if (result.promptFeedback && result.promptFeedback.blockReason) {
-                        console.error('Gemini API Prompt Feedback:', result.promptFeedback);
-                        geminiModalContent.textContent = `تم حظر الطلب بسبب: ${result.promptFeedback.blockReason}. قد يكون السبب يتعلق بسياسات المحتوى.`;
-                    }
-                    else {
-                        console.error('Unexpected Gemini API response structure:', result);
-                        geminiModalContent.textContent = "عذرًا، لم نتمكن من الحصول على رد منسق بشكل صحيح. يرجى المحاولة مرة أخرى.";
-                    }
-                } catch (error) {
-                    console.error('Error calling Gemini API:', error);
-                    geminiModalContent.textContent = `حدث خطأ: ${error.message}. يرجى التحقق من وحدة التحكم لمزيد من التفاصيل.`;
-                } finally {
-                    geminiLoadingIndicator.classList.add('hidden');
-                    // Enable buttons only after modal is explicitly closed by user
-                    // allGeminiButtons.forEach(btn => btn.disabled = false); // Moved to hideGeminiModal
-                }
+                const responseText = simulatedResponses[promptKey] || "عذرًا، لم يتم العثور على رد محاكى لهذا الطلب.";
+                geminiModalContent.textContent = responseText;
+                geminiLoadingIndicator.classList.add('hidden');
             }
 
             const generateFutureInsightsButton = document.getElementById('generateFutureInsightsButton');
             if (generateFutureInsightsButton) {
                 generateFutureInsightsButton.addEventListener('click', () => {
-                    const prompt = "Based on the current global adult entertainment market size of $287.8 billion in 2023, a projected CAGR of 8.6% until 2034, and emerging technologies like VR, AR, and AI, generate 2-3 bullet points on potential future trends or unaddressed opportunities in this market for the next 5-10 years. Focus on market and business aspects. Please provide the response in Arabic.";
-                    callGeminiApi(prompt, '✨ توقعات مستقبلية إضافية');
+                    simulateGeminiApiCall('future_insights', '✨ توقعات مستقبلية (محاكاة)');
                 });
             }
 
@@ -616,23 +567,19 @@
             geminiPromptButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const promptKey = button.dataset.geminiPromptKey;
-                    let promptText = "";
-                    let modalTitle = "✨ شرح الاتجاه";
+                    let modalTitle = "✨ شرح الاتجاه (محاكاة)";
 
                     if (promptKey === 'internet_streaming_impact') {
-                        promptText = "Explain the market impact of the internet and live streaming on the pornography industry in 2-3 concise sentences for a general audience. Please provide the response in Arabic.";
-                        modalTitle = "✨ تأثير الإنترنت والبث المباشر";
+                        modalTitle = "✨ تأثير الإنترنت والبث المباشر (محاكاة)";
                     } else if (promptKey === 'emerging_tech_impact') {
-                        promptText = "Explain the potential market impact of emerging technologies like VR, AR, and AI on the pornography industry in 2-3 concise sentences for a general audience. Please provide the response in Arabic.";
-                        modalTitle = "✨ تأثير التقنيات الناشئة";
+                        modalTitle = "✨ تأثير التقنيات الناشئة (محاكاة)";
                     }
                     
-                    if(promptText) {
-                        callGeminiApi(promptText, modalTitle);
+                    if(promptKey) {
+                        simulateGeminiApiCall(promptKey, modalTitle);
                     }
                 });
             });
-
         });
     </script>
 </body>
