@@ -15,6 +15,8 @@
         - تطور تكنولوجيا الإباحية (IV.B, IV.C): الهدف: تغيير/تنظيم. التصور: خط زمني مبسط (HTML/CSS). التبرير: عرض التطور التكنولوجي. (لا SVG)
         - مواقف الشباب تجاه الإباحية (IV.A): الهدف: مقارنة. التصور: مخطط شريطي (Chart.js). التبرير: عرض تغير المواقف الأخلاقية (بيانات توضيحية مستوحاة من النص). (لا SVG)
         - الأجندات المتنافسة (IV.D): الهدف: علاقات. التصور: مخطط مفاهيمي (HTML/CSS). التبرير: إظهار القوى المتفاعلة في السوق. (لا SVG)
+        - ✨ توليد توقعات مستقبلية إضافية (الخلاصة): الهدف: إعلام/تحليل. التصور: نص مولد بواسطة Gemini API في نافذة منبثقة. التبرير: تقديم رؤى إضافية. (Gemini API)
+        - ✨ شرح الاتجاه (تطور التكنولوجيا): الهدف: إعلام. التصور: نص مولد بواسطة Gemini API في نافذة منبثقة. التبرير: تبسيط المفاهيم المعقدة. (Gemini API)
     -->
     <style>
         body {
@@ -79,6 +81,27 @@
         }
         .footer {
             @apply bg-indigo-900 text-gray-200 text-center p-6 mt-12;
+        }
+        .gemini-button {
+            @apply mt-4 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 transition-colors;
+        }
+        .modal {
+            @apply fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center hidden z-[100];
+        }
+        .modal-content-wrapper {
+            @apply relative mx-auto p-5 border w-full max-w-md shadow-lg rounded-md bg-white;
+        }
+        .modal-title {
+            @apply text-lg leading-6 font-medium text-gray-900;
+        }
+        .modal-body {
+            @apply mt-2 px-7 py-3 text-sm text-gray-700 leading-relaxed;
+        }
+        .modal-button {
+            @apply px-4 py-2 bg-orange-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-300;
+        }
+        .loading-spinner {
+            @apply animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto;
         }
     </style>
 </head>
@@ -227,8 +250,11 @@
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h4 class="font-semibold text-indigo-700">الإنترنت والبث المباشر</h4>
-                            <p class="text-sm text-gray-600">ثورة في التوزيع، محتوى مجاني، وسهولة وصول عالمية.</p>
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-semibold text-indigo-700">الإنترنت والبث المباشر</h4>
+                                <button class="gemini-button text-xs px-2 py-1" data-gemini-prompt-key="internet_streaming_impact">✨ شرح هذا الاتجاه</button>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">ثورة في التوزيع، محتوى مجاني، وسهولة وصول عالمية.</p>
                         </div>
                     </div>
                      <div class="timeline-item">
@@ -241,8 +267,11 @@
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
                         <div class="timeline-content">
-                            <h4 class="font-semibold text-indigo-700">التقنيات الناشئة (VR, AR, AI)</h4>
-                            <p class="text-sm text-gray-600">تجارب غامرة، محتوى مُخصص، وتحديات أخلاقية جديدة (مثل التزييف العميق).</p>
+                             <div class="flex justify-between items-center">
+                                <h4 class="font-semibold text-indigo-700">التقنيات الناشئة (VR, AR, AI)</h4>
+                                <button class="gemini-button text-xs px-2 py-1" data-gemini-prompt-key="emerging_tech_impact">✨ شرح هذا الاتجاه</button>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">تجارب غامرة، محتوى مُخصص، وتحديات أخلاقية جديدة (مثل التزييف العميق).</p>
                         </div>
                     </div>
                 </div>
@@ -314,6 +343,7 @@
                 <p class="text-lg text-gray-700 mb-4">تُظهر صناعة المحتوى الجنسي والألعاب الجنسية نموًا كبيرًا وتطورًا مستمرًا، مدفوعة بقوى تجارية وتكنولوجية وثقافية معقدة. التطبيع المتزايد، خاصة للإباحية، يسهل الوصول والاستهلاك، بينما تثير التقنيات الجديدة مثل الذكاء الاصطناعي فرصًا وتحديات أخلاقية جديدة.</p>
                 <p class="text-lg text-gray-700 mb-4">في المقابل، تتصاعد الأصوات النقدية من وجهات نظر نسوية وصحية عامة، وتتطور الأطر القانونية لمحاولة موازنة حرية التعبير مع منع الضرر، خاصة حماية القصر. المستقبل سيشهد على الأرجح استمرار هذا التفاعل الديناميكي بين الابتكار التجاري، والاستجابات المجتمعية، والمحاولات التنظيمية.</p>
                 <p class="text-lg text-gray-700">يبقى فهم هذه الاتجاهات وتأثيراتها المتعددة أمرًا بالغ الأهمية للأفراد وصناع السياسات والباحثين على حد سواء، لضمان تعامل أكثر وعيًا ومسؤولية مع هذا المشهد المتغير باستمرار.</p>
+                <button id="generateFutureInsightsButton" class="gemini-button">✨ توليد توقعات مستقبلية إضافية</button>
             </div>
         </section>
     </main>
@@ -322,6 +352,25 @@
         <p class="text-sm">إنفوجرافيك مستوحى من تقرير "العادة السرية وإدمان الإباحية: التأثيرات الشاملة على الدماغ والجسم والأجندات الثقافية المعاصرة".</p>
         <p class="text-xs mt-1">تم إنشاء هذا الإنفوجرافيك لأغراض توضيحية وعرض البيانات.</p>
     </footer>
+
+    <div id="geminiModal" class="modal">
+        <div class="modal-content-wrapper">
+            <div class="mt-3 text-center">
+                <h3 class="modal-title" id="geminiModalTitle">✨ جاري التحميل...</h3>
+                <div class="modal-body">
+                    <p id="geminiModalContent" class="whitespace-pre-wrap">يرجى الانتظار بينما نقوم بتوليد الرد...</p>
+                    <div id="geminiLoadingIndicator" class="mt-4">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+                <div class="items-center px-4 py-3">
+                    <button id="closeGeminiModalButton" class="modal-button">
+                        إغلاق
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -333,7 +382,6 @@
                 });
             }
 
-            // Smooth scroll for navigation
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -343,11 +391,8 @@
                         targetElement.scrollIntoView({
                             behavior: 'smooth'
                         });
-                        // Update active nav item
                         document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
                         this.classList.add('active');
-
-                        // Close mobile menu if open
                         if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
                             mobileMenu.classList.add('hidden');
                         }
@@ -355,7 +400,6 @@
                 });
             });
             
-            // Function to wrap labels for Chart.js
             function wrapLabels(label, maxWidth) {
                 if (typeof label !== 'string' || label.length <= maxWidth) {
                     return label;
@@ -377,7 +421,6 @@
                 return lines;
             }
 
-            // Tooltip configuration
             const tooltipTitleCallback = (tooltipItems) => {
                 const item = tooltipItems[0];
                 let label = item.chart.data.labels[item.dataIndex];
@@ -387,7 +430,6 @@
                 return label;
             };
 
-            // Chart 1: Porn Website Percentage
             const pornWebsiteCtx = document.getElementById('pornWebsitePercentageChart');
             if (pornWebsiteCtx) {
                 new Chart(pornWebsiteCtx, {
@@ -396,7 +438,7 @@
                         labels: [wrapLabels('مواقع إباحية', 16), wrapLabels('مواقع أخرى', 16)],
                         datasets: [{
                             label: 'نسبة مواقع الويب',
-                            data: [12, 88], // Data from report IV.A: 12%
+                            data: [12, 88], 
                             backgroundColor: ['#FF9800', '#2196F3'],
                             borderColor: ['#FFFFFF', '#FFFFFF'],
                             borderWidth: 2
@@ -406,36 +448,23 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    font: { family: 'Tajawal', size: 12 },
-                                    color: '#212121'
-                                }
-                            },
-                            title: {
-                                display: false
-                            },
-                            tooltip: {
-                                callbacks: { title: tooltipTitleCallback },
-                                bodyFont: { family: 'Tajawal' },
-                                titleFont: { family: 'Tajawal' }
-                            }
+                            legend: { position: 'bottom', labels: { font: { family: 'Tajawal', size: 12 }, color: '#212121'}},
+                            title: { display: false },
+                            tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }}
                         }
                     }
                 });
             }
 
-            // Chart 2: Global Adult Entertainment Market Growth
             const globalMarketCtx = document.getElementById('globalMarketGrowthChart');
             if (globalMarketCtx) {
                 new Chart(globalMarketCtx, {
                     type: 'line',
                     data: {
-                        labels: ['2023', '2025', '2028', '2031', '2034'], // Illustrative years based on projection
+                        labels: ['2023', '2025', '2028', '2031', '2034'],
                         datasets: [{
                             label: wrapLabels('القيمة السوقية (مليار دولار أمريكي)', 20),
-                            data: [287.8, 350, 450, 570, 706.2], // Start 287.8, End 706.2 by 2034 (IV.B) - intermediate values are illustrative
+                            data: [287.8, 350, 450, 570, 706.2], 
                             borderColor: '#FF9800',
                             backgroundColor: 'rgba(255, 152, 0, 0.1)',
                             fill: true,
@@ -446,29 +475,17 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         scales: {
-                            y: {
-                                beginAtZero: false,
-                                title: { display: true, text: wrapLabels('القيمة (مليار $)',16), font: { family: 'Tajawal' }, color: '#212121' },
-                                ticks: { font: { family: 'Tajawal' }, color: '#212121' }
-                            },
-                            x: {
-                                title: { display: true, text: wrapLabels('السنة',16), font: { family: 'Tajawal' }, color: '#212121' },
-                                ticks: { font: { family: 'Tajawal' }, color: '#212121' }
-                            }
+                            y: { beginAtZero: false, title: { display: true, text: wrapLabels('القيمة (مليار $)',16), font: { family: 'Tajawal' }, color: '#212121' }, ticks: { font: { family: 'Tajawal' }, color: '#212121' }},
+                            x: { title: { display: true, text: wrapLabels('السنة',16), font: { family: 'Tajawal' }, color: '#212121' }, ticks: { font: { family: 'Tajawal' }, color: '#212121' }}
                         },
                         plugins: {
                             legend: { display: true, position: 'top', labels: { font: { family: 'Tajawal' }, color: '#212121' } },
-                            tooltip: {
-                                callbacks: { title: tooltipTitleCallback },
-                                bodyFont: { family: 'Tajawal' },
-                                titleFont: { family: 'Tajawal' }
-                            }
+                            tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }}
                         }
                     }
                 });
             }
             
-            // Chart 3: Youth Attitudes Towards Pornography (Illustrative based on IV.A)
             const youthAttitudesCtx = document.getElementById('youthAttitudesChart');
             if (youthAttitudesCtx) {
                 new Chart(youthAttitudesCtx, {
@@ -477,7 +494,7 @@
                         labels: [wrapLabels('الجيل الأكبر سناً', 16), wrapLabels('الشباب البالغون', 16)],
                         datasets: [{
                             label: wrapLabels('نسبة من يرون الإباحية خطأ أخلاقيًا (توضيحي)', 25),
-                            data: [65, 35], // Illustrative data based on text "يقل احتمال اعتبار الشباب البالغين لها خطأ أخلاقيًا مقارنة بالأجيال الأكبر سنًا"
+                            data: [65, 35],
                             backgroundColor: ['#2196F3', '#FF9800'],
                             borderColor: ['#1A237E', '#E65100'],
                             borderWidth: 1
@@ -488,27 +505,106 @@
                         maintainAspectRatio: false,
                         indexAxis: 'y',
                         scales: {
-                            x: {
-                                beginAtZero: true,
-                                max: 100,
-                                title: { display: true, text: wrapLabels('النسبة المئوية (%)',16), font: { family: 'Tajawal' }, color: '#212121' },
-                                ticks: { font: { family: 'Tajawal' }, color: '#212121' }
-                            },
-                            y: {
-                                ticks: { font: { family: 'Tajawal', size: 10 }, color: '#212121' }
-                            }
+                            x: { beginAtZero: true, max: 100, title: { display: true, text: wrapLabels('النسبة المئوية (%)',16), font: { family: 'Tajawal' }, color: '#212121' }, ticks: { font: { family: 'Tajawal' }, color: '#212121' }},
+                            y: { ticks: { font: { family: 'Tajawal', size: 10 }, color: '#212121' }}
                         },
                         plugins: {
                             legend: { display: false },
-                            tooltip: {
-                                callbacks: { title: tooltipTitleCallback },
-                                bodyFont: { family: 'Tajawal' },
-                                titleFont: { family: 'Tajawal' }
-                            }
+                            tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }}
                         }
                     }
                 });
             }
+
+            // Gemini API Integration
+            const geminiModal = document.getElementById('geminiModal');
+            const geminiModalTitle = document.getElementById('geminiModalTitle');
+            const geminiModalContent = document.getElementById('geminiModalContent');
+            const geminiLoadingIndicator = document.getElementById('geminiLoadingIndicator');
+            const closeGeminiModalButton = document.getElementById('closeGeminiModalButton');
+
+            function showGeminiModal(title) {
+                geminiModalTitle.textContent = title || '✨ رؤى من Gemini';
+                geminiModalContent.textContent = 'يرجى الانتظار بينما نقوم بتوليد الرد...';
+                geminiLoadingIndicator.classList.remove('hidden');
+                geminiModal.classList.remove('hidden');
+            }
+
+            function hideGeminiModal() {
+                geminiModal.classList.add('hidden');
+            }
+
+            closeGeminiModalButton.addEventListener('click', hideGeminiModal);
+
+            async function callGeminiApi(promptText, modalTitle) {
+                showGeminiModal(modalTitle);
+                
+                let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Gemini API Error Response:', errorData);
+                        throw new Error(`API request failed with status ${response.status}: ${errorData.error?.message || 'Unknown error'}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        geminiModalContent.textContent = text;
+                    } else {
+                        console.error('Unexpected Gemini API response structure:', result);
+                        geminiModalContent.textContent = "عذرًا، لم نتمكن من الحصول على رد. يرجى المحاولة مرة أخرى.";
+                    }
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    geminiModalContent.textContent = `حدث خطأ أثناء الاتصال بالـ API: ${error.message}. يرجى التحقق من وحدة التحكم لمزيد من التفاصيل.`;
+                } finally {
+                    geminiLoadingIndicator.classList.add('hidden');
+                }
+            }
+
+            const generateFutureInsightsButton = document.getElementById('generateFutureInsightsButton');
+            if (generateFutureInsightsButton) {
+                generateFutureInsightsButton.addEventListener('click', () => {
+                    const prompt = "Based on the current global adult entertainment market size of $287.8 billion in 2023, a projected CAGR of 8.6% until 2034, and emerging technologies like VR, AR, and AI, generate 2-3 bullet points on potential future trends or unaddressed opportunities in this market for the next 5-10 years. Focus on market and business aspects. Please provide the response in Arabic.";
+                    callGeminiApi(prompt, '✨ توقعات مستقبلية إضافية');
+                });
+            }
+
+            const geminiPromptButtons = document.querySelectorAll('button[data-gemini-prompt-key]');
+            geminiPromptButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const promptKey = button.dataset.geminiPromptKey;
+                    let promptText = "";
+                    let modalTitle = "✨ شرح الاتجاه";
+
+                    if (promptKey === 'internet_streaming_impact') {
+                        promptText = "Explain the market impact of the internet and live streaming on the pornography industry in 2-3 concise sentences for a general audience. Please provide the response in Arabic.";
+                        modalTitle = "✨ تأثير الإنترنت والبث المباشر";
+                    } else if (promptKey === 'emerging_tech_impact') {
+                        promptText = "Explain the potential market impact of emerging technologies like VR, AR, and AI on the pornography industry in 2-3 concise sentences for a general audience. Please provide the response in Arabic.";
+                        modalTitle = "✨ تأثير التقنيات الناشئة";
+                    }
+                    
+                    if(promptText) {
+                        callGeminiApi(promptText, modalTitle);
+                    }
+                });
+            });
+
         });
     </script>
 </body>
