@@ -83,7 +83,7 @@
             @apply bg-indigo-900 text-gray-200 text-center p-6 mt-12;
         }
         .gemini-button {
-            @apply mt-4 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 transition-colors;
+            @apply mt-4 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
         }
         .modal {
             @apply fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center hidden z-[100];
@@ -95,7 +95,7 @@
             @apply text-lg leading-6 font-medium text-gray-900;
         }
         .modal-body {
-            @apply mt-2 px-7 py-3 text-sm text-gray-700 leading-relaxed;
+            @apply mt-2 px-7 py-3 text-sm text-gray-700 leading-relaxed max-h-[60vh] overflow-y-auto;
         }
         .modal-button {
             @apply px-4 py-2 bg-orange-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-300;
@@ -430,90 +430,102 @@
                 return label;
             };
 
-            const pornWebsiteCtx = document.getElementById('pornWebsitePercentageChart');
-            if (pornWebsiteCtx) {
-                new Chart(pornWebsiteCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: [wrapLabels('مواقع إباحية', 16), wrapLabels('مواقع أخرى', 16)],
-                        datasets: [{
-                            label: 'نسبة مواقع الويب',
-                            data: [12, 88], 
-                            backgroundColor: ['#FF9800', '#2196F3'],
-                            borderColor: ['#FFFFFF', '#FFFFFF'],
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: 'bottom', labels: { font: { family: 'Tajawal', size: 12 }, color: '#212121'}},
-                            title: { display: false },
-                            tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }}
+            try {
+                const pornWebsiteCtx = document.getElementById('pornWebsitePercentageChart');
+                if (pornWebsiteCtx) {
+                    new Chart(pornWebsiteCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: [wrapLabels('مواقع إباحية', 16), wrapLabels('مواقع أخرى', 16)],
+                            datasets: [{
+                                label: 'نسبة مواقع الويب',
+                                data: [12, 88], 
+                                backgroundColor: ['#FF9800', '#2196F3'],
+                                borderColor: ['#FFFFFF', '#FFFFFF'],
+                                borderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { position: 'bottom', labels: { font: { family: 'Tajawal', size: 12 }, color: '#212121'}},
+                                title: { display: false },
+                                tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }}
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            } catch (e) {
+                console.error("Error initializing Porn Website Percentage Chart:", e);
             }
 
-            const globalMarketCtx = document.getElementById('globalMarketGrowthChart');
-            if (globalMarketCtx) {
-                new Chart(globalMarketCtx, {
-                    type: 'line',
-                    data: {
-                        labels: ['2023', '2025', '2028', '2031', '2034'],
-                        datasets: [{
-                            label: wrapLabels('القيمة السوقية (مليار دولار أمريكي)', 20),
-                            data: [287.8, 350, 450, 570, 706.2], 
-                            borderColor: '#FF9800',
-                            backgroundColor: 'rgba(255, 152, 0, 0.1)',
-                            fill: true,
-                            tension: 0.3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: { beginAtZero: false, title: { display: true, text: wrapLabels('القيمة (مليار $)',16), font: { family: 'Tajawal' }, color: '#212121' }, ticks: { font: { family: 'Tajawal' }, color: '#212121' }},
-                            x: { title: { display: true, text: wrapLabels('السنة',16), font: { family: 'Tajawal' }, color: '#212121' }, ticks: { font: { family: 'Tajawal' }, color: '#212121' }}
+            try {
+                const globalMarketCtx = document.getElementById('globalMarketGrowthChart');
+                if (globalMarketCtx) {
+                    new Chart(globalMarketCtx, {
+                        type: 'line',
+                        data: {
+                            labels: ['2023', '2025', '2028', '2031', '2034'],
+                            datasets: [{
+                                label: wrapLabels('القيمة السوقية (مليار دولار أمريكي)', 20),
+                                data: [287.8, 350, 450, 570, 706.2], 
+                                borderColor: '#FF9800',
+                                backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                                fill: true,
+                                tension: 0.3
+                            }]
                         },
-                        plugins: {
-                            legend: { display: true, position: 'top', labels: { font: { family: 'Tajawal' }, color: '#212121' } },
-                            tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }}
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: { beginAtZero: false, title: { display: true, text: wrapLabels('القيمة (مليار $)',16), font: { family: 'Tajawal' }, color: '#212121' }, ticks: { font: { family: 'Tajawal' }, color: '#212121' }},
+                                x: { title: { display: true, text: wrapLabels('السنة',16), font: { family: 'Tajawal' }, color: '#212121' }, ticks: { font: { family: 'Tajawal' }, color: '#212121' }}
+                            },
+                            plugins: {
+                                legend: { display: true, position: 'top', labels: { font: { family: 'Tajawal' }, color: '#212121' } },
+                                tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }}
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            } catch (e) {
+                console.error("Error initializing Global Market Growth Chart:", e);
             }
             
-            const youthAttitudesCtx = document.getElementById('youthAttitudesChart');
-            if (youthAttitudesCtx) {
-                new Chart(youthAttitudesCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: [wrapLabels('الجيل الأكبر سناً', 16), wrapLabels('الشباب البالغون', 16)],
-                        datasets: [{
-                            label: wrapLabels('نسبة من يرون الإباحية خطأ أخلاقيًا (توضيحي)', 25),
-                            data: [65, 35],
-                            backgroundColor: ['#2196F3', '#FF9800'],
-                            borderColor: ['#1A237E', '#E65100'],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        indexAxis: 'y',
-                        scales: {
-                            x: { beginAtZero: true, max: 100, title: { display: true, text: wrapLabels('النسبة المئوية (%)',16), font: { family: 'Tajawal' }, color: '#212121' }, ticks: { font: { family: 'Tajawal' }, color: '#212121' }},
-                            y: { ticks: { font: { family: 'Tajawal', size: 10 }, color: '#212121' }}
+            try {
+                const youthAttitudesCtx = document.getElementById('youthAttitudesChart');
+                if (youthAttitudesCtx) {
+                    new Chart(youthAttitudesCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: [wrapLabels('الجيل الأكبر سناً', 16), wrapLabels('الشباب البالغون', 16)],
+                            datasets: [{
+                                label: wrapLabels('نسبة من يرون الإباحية خطأ أخلاقيًا (توضيحي)', 25),
+                                data: [65, 35],
+                                backgroundColor: ['#2196F3', '#FF9800'],
+                                borderColor: ['#1A237E', '#E65100'],
+                                borderWidth: 1
+                            }]
                         },
-                        plugins: {
-                            legend: { display: false },
-                            tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }}
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            indexAxis: 'y',
+                            scales: {
+                                x: { beginAtZero: true, max: 100, title: { display: true, text: wrapLabels('النسبة المئوية (%)',16), font: { family: 'Tajawal' }, color: '#212121' }, ticks: { font: { family: 'Tajawal' }, color: '#212121' }},
+                                y: { ticks: { font: { family: 'Tajawal', size: 10 }, color: '#212121' }}
+                            },
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { callbacks: { title: tooltipTitleCallback }, bodyFont: { family: 'Tajawal' }, titleFont: { family: 'Tajawal' }}
+                            }
                         }
-                    }
-                });
+                    });
+                }
+            } catch (e) {
+                console.error("Error initializing Youth Attitudes Chart:", e);
             }
 
             // Gemini API Integration
@@ -522,22 +534,26 @@
             const geminiModalContent = document.getElementById('geminiModalContent');
             const geminiLoadingIndicator = document.getElementById('geminiLoadingIndicator');
             const closeGeminiModalButton = document.getElementById('closeGeminiModalButton');
+            const allGeminiButtons = document.querySelectorAll('.gemini-button');
+
 
             function showGeminiModal(title) {
                 geminiModalTitle.textContent = title || '✨ رؤى من Gemini';
-                geminiModalContent.textContent = 'يرجى الانتظار بينما نقوم بتوليد الرد...';
+                geminiModalContent.innerHTML = ''; // Clear previous content
                 geminiLoadingIndicator.classList.remove('hidden');
                 geminiModal.classList.remove('hidden');
+                allGeminiButtons.forEach(btn => btn.disabled = true);
             }
 
             function hideGeminiModal() {
                 geminiModal.classList.add('hidden');
+                allGeminiButtons.forEach(btn => btn.disabled = false);
             }
 
             closeGeminiModalButton.addEventListener('click', hideGeminiModal);
 
-            async function callGeminiApi(promptText, modalTitle) {
-                showGeminiModal(modalTitle);
+            async function callGeminiApi(promptText, modalTitleForDisplay) {
+                showGeminiModal(modalTitleForDisplay);
                 
                 let chatHistory = [{ role: "user", parts: [{ text: promptText }] }];
                 const payload = { contents: chatHistory };
@@ -552,9 +568,15 @@
                     });
 
                     if (!response.ok) {
-                        const errorData = await response.json();
-                        console.error('Gemini API Error Response:', errorData);
-                        throw new Error(`API request failed with status ${response.status}: ${errorData.error?.message || 'Unknown error'}`);
+                        let errorMsg = `فشل طلب الـ API بالحالة ${response.status}.`;
+                        try {
+                            const errorData = await response.json();
+                            console.error('Gemini API Error Response:', errorData);
+                            errorMsg += ` ${errorData.error?.message || 'خطأ غير معروف من الخادم.'}`;
+                        } catch (e) {
+                            errorMsg += ` ${response.statusText || 'تعذر تحليل رسالة الخطأ من الخادم.'}`;
+                        }
+                        throw new Error(errorMsg);
                     }
 
                     const result = await response.json();
@@ -564,15 +586,21 @@
                         result.candidates[0].content.parts.length > 0) {
                         const text = result.candidates[0].content.parts[0].text;
                         geminiModalContent.textContent = text;
-                    } else {
+                    } else if (result.promptFeedback && result.promptFeedback.blockReason) {
+                        console.error('Gemini API Prompt Feedback:', result.promptFeedback);
+                        geminiModalContent.textContent = `تم حظر الطلب بسبب: ${result.promptFeedback.blockReason}. قد يكون السبب يتعلق بسياسات المحتوى.`;
+                    }
+                    else {
                         console.error('Unexpected Gemini API response structure:', result);
-                        geminiModalContent.textContent = "عذرًا، لم نتمكن من الحصول على رد. يرجى المحاولة مرة أخرى.";
+                        geminiModalContent.textContent = "عذرًا، لم نتمكن من الحصول على رد منسق بشكل صحيح. يرجى المحاولة مرة أخرى.";
                     }
                 } catch (error) {
                     console.error('Error calling Gemini API:', error);
-                    geminiModalContent.textContent = `حدث خطأ أثناء الاتصال بالـ API: ${error.message}. يرجى التحقق من وحدة التحكم لمزيد من التفاصيل.`;
+                    geminiModalContent.textContent = `حدث خطأ: ${error.message}. يرجى التحقق من وحدة التحكم لمزيد من التفاصيل.`;
                 } finally {
                     geminiLoadingIndicator.classList.add('hidden');
+                    // Enable buttons only after modal is explicitly closed by user
+                    // allGeminiButtons.forEach(btn => btn.disabled = false); // Moved to hideGeminiModal
                 }
             }
 
